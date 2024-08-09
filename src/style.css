@@ -111,6 +111,12 @@ Table of Contents
 
 
 */
+@import '@fontsource/roboto/300.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';
+
+
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");
 @import url(/icons/font-awesome/css/font-awesome.min.css);
 @import url(/icons/simple-line-icons/css/simple-line-icons.css);

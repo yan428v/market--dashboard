@@ -23,12 +23,18 @@ const Sidebar = () => {
                 msOverflowStyle: 'none'
             }}>
                 <div className="nk-nav-scroll">
-                    <ul className="metismenu" >
+                    <ul className="metismenu">
                         <li className="nav-label">Main</li>
                         <li>
                             <Link to="/">
                                 <i className="mdi mdi-view-dashboard"></i>
                                 <span className="nav-text">Dashboard</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/statistics">
+                                <i className="mdi mdi-chart-bar"></i>
+                                <span className="nav-text">Statistics</span>
                             </Link>
                         </li>
                         <li className="nav-label">Components</li>
