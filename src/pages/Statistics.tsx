@@ -21,77 +21,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import {getAllStatistics} from "../api/statisticsApi.ts";
-
-getAllStatistics()
-interface Data {
-    id: number;
-    calories: number;
-    carbs: number;
-    fat: number;
-    name: string;
-    protein: number;
-}
-function createData(
-    id: number,
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-): Data {
-    return {
-        id,
-        name,
-        calories,
-        fat,
-        carbs,
-        protein,
-    };
-}
-const rows = [
-    createData(1, 'Cupcake', 305, 3.7, 67, 4.3),
-    createData(2, 'Donut', 452, 25.0, 51, 4.9),
-    createData(3, 'Eclair', 262, 16.0, 24, 6.0),
-    createData(4, 'Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData(5, 'Gingerbread', 356, 16.0, 49, 3.9),
-    createData(6, 'Honeycomb', 408, 3.2, 87, 6.5),
-    createData(7, 'Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData(8, 'Jelly Bean', 375, 0.0, 94, 0.0),
-    createData(9, 'KitKat', 518, 26.0, 65, 7.0),
-    createData(10, 'Lollipop', 392, 0.2, 98, 0.0),
-    createData(11, 'Marshmallow', 318, 0, 81, 2.0),
-    createData(12, 'Nougat', 360, 19.0, 9, 37.0),
-    createData(13, 'Oreo', 437, 18.0, 63, 4.0),
-    createData(121, 'Cupcake', 305, 3.7, 67, 4.3),
-    createData(122, 'Donut', 452, 25.0, 51, 4.9),
-    createData(123, 'Eclair', 262, 16.0, 24, 6.0),
-    createData(124, 'Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData(125, 'Gingerbread', 356, 16.0, 49, 3.9),
-    createData(126, 'Honeycomb', 408, 3.2, 87, 6.5),
-    createData(127, 'Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData(128, 'Jelly Bean', 375, 0.0, 94, 0.0),
-    createData(129, 'KitKat', 518, 26.0, 65, 7.0),
-    createData(1210, 'Lollipop', 392, 0.2, 98, 0.0),
-    createData(1211, 'Marshmallow', 318, 0, 81, 2.0),
-    createData(1212, 'Nougat', 360, 19.0, 9, 37.0),
-    createData(1213, 'Oreo', 437, 18.0, 63, 4.0),
-    createData(211, 'Cupcake', 305, 3.7, 67, 4.3),
-    createData(212, 'Donut', 452, 25.0, 51, 4.9),
-    createData(213, 'Eclair', 262, 16.0, 24, 6.0),
-    createData(214, 'Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData(215, 'Gingerbread', 356, 16.0, 49, 3.9),
-    createData(216, 'Honeycomb', 408, 3.2, 87, 6.5),
-    createData(217, 'Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData(218, 'Jelly Bean', 375, 0.0, 94, 0.0),
-    createData(219, 'KitKat', 518, 26.0, 65, 7.0),
-    createData(2110, 'Lollipop', 392, 0.2, 98, 0.0),
-    createData(2111, 'Marshmallow', 318, 0, 81, 2.0),
-    createData(2112, 'Nougat', 360, 19.0, 9, 37.0),
-    createData(2113, 'Oreo', 437, 18.0, 63, 4.0),
-];
+import {CampaignStatistics} from "../types/types.ts";
 
 
-
+const rows = await getAllStatistics();
+console.log(rows)
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -134,47 +68,26 @@ function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) 
 
 interface HeadCell {
     disablePadding: boolean;
-    id: keyof Data;
+    id: keyof CampaignStatistics;
     label: string;
     numeric: boolean;
 }
 
 const headCells: readonly HeadCell[] = [
-    {
-        id: 'name',
-        numeric: false,
-        disablePadding: true,
-        label: 'Dessert (100g serving)',
-    },
-    {
-        id: 'calories',
-        numeric: true,
-        disablePadding: false,
-        label: 'Calories',
-    },
-    {
-        id: 'fat',
-        numeric: true,
-        disablePadding: false,
-        label: 'Fat (g)',
-    },
-    {
-        id: 'carbs',
-        numeric: true,
-        disablePadding: false,
-        label: 'Carbs (g)',
-    },
-    {
-        id: 'protein',
-        numeric: true,
-        disablePadding: false,
-        label: 'Protein (g)',
-    },
+    { id: 'campaignName', numeric: false, disablePadding: true, label: 'Campaign Name' },
+    { id: 'date', numeric: false, disablePadding: false, label: 'Date' },
+    { id: 'clicks', numeric: true, disablePadding: false, label: 'Clicks' },
+    { id: 'impressions', numeric: true, disablePadding: false, label: 'Impressions' },
+    { id: 'cost', numeric: true, disablePadding: false, label: 'Cost' },
+    { id: 'ctr', numeric: true, disablePadding: false, label: 'CTR (%)' },
+    { id: 'avgCpc', numeric: true, disablePadding: false, label: 'Avg CPC' },
+    { id: 'conversions', numeric: true, disablePadding: false, label: 'Conversions' },
+    { id: 'costPerConversion', numeric: true, disablePadding: false, label: 'Cost/Conv' },
 ];
 
 interface EnhancedTableProps {
     numSelected: number;
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
+    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof CampaignStatistics) => void;
     onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
     order: Order;
     orderBy: string;
@@ -185,7 +98,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
         props;
     const createSortHandler =
-        (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+        (property: keyof CampaignStatistics) => (event: React.MouseEvent<unknown>) => {
             onRequestSort(event, property);
         };
 
@@ -199,7 +112,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                         checked={rowCount > 0 && numSelected === rowCount}
                         onChange={onSelectAllClick}
                         inputProps={{
-                            'aria-label': 'select all desserts',
+                            'aria-label': 'select all campaigns',
                         }}
                     />
                 </TableCell>
@@ -284,15 +197,15 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 }
 export default function EnhancedTable() {
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
+    const [orderBy, setOrderBy] = React.useState<keyof CampaignStatistics>('campaignName');
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(30);
 
     const handleRequestSort = (
-        event: React.MouseEvent<unknown>,
-        property: keyof Data,
+        _event: React.MouseEvent<unknown>,
+        property: keyof CampaignStatistics,
     ) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
@@ -301,14 +214,16 @@ export default function EnhancedTable() {
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.id);
+            const newSelected = rows.map((n:CampaignStatistics) => n.id);
             setSelected(newSelected);
             return;
         }
         setSelected([]);
     };
 
-    const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+    const handleClick = (
+        _event: React.MouseEvent<unknown>,
+        id: number) => {
         const selectedIndex = selected.indexOf(id);
         let newSelected: readonly number[] = [];
 
@@ -327,7 +242,9 @@ export default function EnhancedTable() {
         setSelected(newSelected);
     };
 
-    const handleChangePage = (event: unknown, newPage: number) => {
+    const handleChangePage = (
+        _event: React.MouseEvent<HTMLButtonElement> | null,
+        newPage: number) => {
         setPage(newPage);
     };
 
@@ -340,7 +257,7 @@ export default function EnhancedTable() {
         setDense(event.target.checked);
     };
 
-    const isSelected = (id: number) => selected.indexOf(id) !== -1;
+    const isSelected = (id: string | number) => selected.indexOf(Number(id)) !== -1;
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
@@ -379,11 +296,17 @@ export default function EnhancedTable() {
                                     {visibleRows.map((row, index) => {
                                         const isItemSelected = isSelected(row.id);
                                         const labelId = `enhanced-table-checkbox-${index}`;
+                                        const options:{
+                                            year: 'numeric',
+                                            month: '2-digit',
+                                            day: '2-digit'
+                                        } = { year: 'numeric', month: '2-digit', day: '2-digit'};
+                                        const formattedDate = new Date(row.date).toLocaleDateString('ru-RU', options);
 
                                         return (
                                             <TableRow
                                                 hover
-                                                onClick={(event) => handleClick(event, row.id)}
+                                                onClick={(event) => handleClick(event, Number(row.id))}
                                                 role="checkbox"
                                                 aria-checked={isItemSelected}
                                                 tabIndex={-1}
@@ -406,12 +329,16 @@ export default function EnhancedTable() {
                                                     scope="row"
                                                     padding="none"
                                                 >
-                                                    {row.name}
+                                                    {row.campaignName}
                                                 </TableCell>
-                                                <TableCell align="right">{row.calories}</TableCell>
-                                                <TableCell align="right">{row.fat}</TableCell>
-                                                <TableCell align="right">{row.carbs}</TableCell>
-                                                <TableCell align="right">{row.protein}</TableCell>
+                                                <TableCell align="right">{formattedDate}</TableCell>
+                                                <TableCell align="right">{row.clicks}</TableCell>
+                                                <TableCell align="right">{row.impressions}</TableCell>
+                                                <TableCell align="right">{row.cost}</TableCell>
+                                                <TableCell align="right">{row.ctr}</TableCell>
+                                                <TableCell align="right">{row.avgCpc}</TableCell>
+                                                <TableCell align="right">{row.conversions}</TableCell>
+                                                <TableCell align="right">{row.costPerConversion}</TableCell>
                                             </TableRow>
                                         );
                                     })}
@@ -428,7 +355,7 @@ export default function EnhancedTable() {
                             </Table>
                         </TableContainer>
                         <TablePagination
-                            rowsPerPageOptions={[10, 25, 50]}
+                            rowsPerPageOptions={[30, 50, 100]}
                             component="div"
                             count={rows.length}
                             rowsPerPage={rowsPerPage}
