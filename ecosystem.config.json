@@ -1,0 +1,12 @@
+{
+    "apps": [
+    {
+        "name": "market-dashboard",
+        "script": "npm",
+        "args": "run build && npx serve -s build -l 80",
+        "env": {
+            "NODE_ENV": "production"
+        }
+    }
+]
+}
