@@ -101,7 +101,7 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                         <li className={`icons ${activeIcon === 'notifications' ? 'active' : ''}`} onClick={() => handleIconClick('notifications')}>
                             <a href="#">
                                 <i className="mdi mdi-bell f-s-18" aria-hidden="true"></i>
-                                <div className="pulse-css"></div>
+                                {/*<div className="pulse-css"></div>*/}
                             </a>
                             <div className="drop-down animate__animated animate__bounceInDown">
                                 <div className="dropdown-content-heading">
@@ -159,7 +159,7 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                         <li className={`icons ${activeIcon === 'messages' ? 'active' : ''}`} onClick={() => handleIconClick('messages')}>
                             <a href="#">
                                 <i className="mdi mdi-comment f-s-18" aria-hidden="true"></i>
-                                <div className="pulse-css"></div>
+                                {/*<div className="pulse-css"></div>*/}
                             </a>
                             <div className="drop-down animate__animated animate__bounceInDown">
                                 <div className="dropdown-content-heading">
@@ -217,7 +217,7 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                         <li className={`icons ${activeIcon === 'progress' ? 'active' : ''}`} onClick={() => handleIconClick('progress')}>
                             <a href="#">
                                 <i className="mdi mdi-crosshairs-gps f-s-18" aria-hidden="true"></i>
-                                <div className="pulse-css"></div>
+                                {/*<div className="pulse-css"></div>*/}
                             </a>
                             <div className="drop-down dropdown-task animate__animated animate__bounceInDown">
                                 <div className="dropdown-content-heading">

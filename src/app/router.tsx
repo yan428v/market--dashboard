@@ -4,7 +4,7 @@ import FloatChartPage from "../pages/FloatChartPage.tsx";
 import MorrisChartPage from "../pages/MorrisChartPage.tsx";
 import ErrorPage from "../pages/ErrorPage.tsx";
 import Dashboard from "../pages/Dashboard.tsx";
-import Statistics from "../pages/Statistics.tsx";
+import Statistics from "../components/tables/Statistics.tsx";
 
 const router = createBrowserRouter([
     {

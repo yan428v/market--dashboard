@@ -20,8 +20,8 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import {getAllStatistics} from "../api/statisticsApi.ts";
-import {CampaignStatistics} from "../types/types.ts";
+import {CampaignStatistics} from "../../types/types.ts";
+import {getAllStatistics} from "../../api/statisticsApi.ts";
 
 
 const rows = await getAllStatistics();
