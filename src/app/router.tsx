@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import {createBrowserRouter, Navigate} from 'react-router-dom';
 import Layout from './Layout.tsx';
 import FloatChartPage from "../pages/FloatChartPage.tsx";
 import MorrisChartPage from "../pages/MorrisChartPage.tsx";
@@ -15,7 +15,8 @@ const router = createBrowserRouter([
             { path: '', element: <Dashboard /> },
             { path: 'float', element: <FloatChartPage /> },
             { path: 'morris', element: <MorrisChartPage /> },
-            { path: 'statistics', element: <Statistics/>}
+            { path: 'statistics', element: <Statistics/>},
+            { path: '*', element: <Navigate to="/" /> }
         ],
     },
 ]);
