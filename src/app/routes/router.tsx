@@ -6,13 +6,14 @@ import ErrorPage from "../../pages/ErrorPage.tsx";
 import Dashboard from "../../pages/Dashboard.tsx";
 import Statistics from "../../components/tables/Statistics.tsx";
 import SignIn from "../../pages/SignIn.tsx";
-import SignUp from "../../pages/SignUp.tsx";
 import {PrivateRoute} from "./PrivateRoute.tsx";
+import SignUp from "../../pages/SignUp.tsx";
 
 const router = createBrowserRouter([
     {
+
         path: '/',
-        errorElement: <ErrorPage />,
+        errorElement:<ErrorPage />,
         children: [
             {
                 element: <PrivateRoute><Layout /></PrivateRoute>,
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
                 ]
             },
             { path: 'signin', element: <SignIn /> },
-            { path: 'signup', element: <SignUp /> },
+            { path: 'signup', element:<SignUp />},
             { path: '*', element: <Navigate to="/" /> }
         ],
     },

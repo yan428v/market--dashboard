@@ -1,11 +1,15 @@
 import {FC, useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
+import {authStore} from "../../store/AuthStore.ts";
+import { useNavigate } from 'react-router-dom';
+// import {appStore} from "../../store/AppStore.tsx";
 
 interface HeaderProps {
     toggleSidebar: () => void;
 }
 
 const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
+    const navigate = useNavigate();
 
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
     const [, setMenus] = useState({
@@ -40,6 +44,12 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
             });
             setActiveIcon(null);
         }
+    };
+
+    const handleLogout = () => {
+        authStore.clearToken();
+        navigate('/signin');
+
     };
 
     useEffect(() => {
@@ -302,10 +312,10 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <Link to="/" onClick={handleLogout}>
                                                 <i className="icon-power"></i>
                                                 <span>Logout</span>
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>

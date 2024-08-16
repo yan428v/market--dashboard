@@ -12,31 +12,72 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useNavigate} from 'react-router-dom';
+import {useValidation} from "../utils/useValidation";
+import {observer} from "mobx-react-lite";
+import {appStore} from "../store/AppStore.tsx";
+import {authStore} from "../store/AuthStore.ts";
+import {signUp} from "../api/authApi.ts";
+import {FormEvent, useEffect, useState} from "react";
 
-function Copyright(props: any) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function SignUp() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+const SignUp: React.FC = observer(() => {
+    const navigate = useNavigate();
+    const {
+        validateUsername,
+        validateEmail,
+        validatePassword,
+    } = useValidation();
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('email');
+        const savedPassword = localStorage.getItem('password');
+
+        if (savedEmail && savedPassword) {
+            setEmail(savedEmail);
+            setPassword(savedPassword);
+        }
+    }, []);
+
+    const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const values = {
+            email: email,
+            password: password,
+            firstName: firstName,
+            lastName: lastName,
+        };
+        try {
+            appStore.setIsLoading(true);
+
+            await validatePassword(values.password);
+            await validateEmail(values.email);
+            await validateUsername(values.firstName);
+            await validateUsername(values.lastName);
+
+            localStorage.setItem('email', values.email);
+            localStorage.setItem('password', values.password);
+
+            const response = await signUp(values)
+
+            await authStore.setToken(response.data.token);
+
+            appStore.setIsLoading(false);
+            console.log('Registration successful!')
+            navigate('/');
+            appStore.showSuccessMessage('Регистрация прошла успешно!');
+        } catch (e: any) {
+            appStore.setIsLoading(false);
+            appStore.handleError(e, `Registration failed. ${e.message}`);
+            console.log('Registration failed')
+        }
     };
 
     return (
@@ -68,6 +109,8 @@ export default function SignUp() {
                                     id="firstName"
                                     label="First Name"
                                     autoFocus
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -78,6 +121,8 @@ export default function SignUp() {
                                     label="Last Name"
                                     name="lastName"
                                     autoComplete="family-name"
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -88,6 +133,8 @@ export default function SignUp() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -99,14 +146,10 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </Grid>
-                            {/*<Grid item xs={12}>*/}
-                                {/*<FormControlLabel*/}
-                                {/*    control={<Checkbox value="allowExtraEmails" color="primary" />}*/}
-                                {/*    label="I want to receive inspiration, marketing promotions and updates via email."*/}
-                                {/*/>*/}
-                            {/*</Grid>*/}
                         </Grid>
                         <Button
                             type="submit"
@@ -116,7 +159,7 @@ export default function SignUp() {
                         >
                             Sign Up
                         </Button>
-                        <Grid container justifyContent="flex-end">
+                        <Grid container justifyContent="center">
                             <Grid item>
                                 <Link href="/signin" variant="body2">
                                     Already have an account? Sign in
@@ -125,8 +168,8 @@ export default function SignUp() {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 5 }} />
             </Container>
         </ThemeProvider>
     );
-}
+})
+export default SignUp

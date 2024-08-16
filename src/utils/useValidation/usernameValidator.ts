@@ -1,5 +1,5 @@
 export const validateUsername = async (username: string): Promise<void> => {
-  const minLength = 3;
+  const minLength = 2;
   const maxLength = 20;
   const usernameRegex = /^[a-zA-Z0-9_а-яА-ЯёЁ]+$/;
 
