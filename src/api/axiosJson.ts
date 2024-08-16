@@ -1,4 +1,4 @@
-import axios, {AxiosError, InternalAxiosRequestConfig} from 'axios'
+import axios, {AxiosError, InternalAxiosRequestConfig} from 'axios';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
@@ -8,7 +8,7 @@ const axiosJson = axios.create({
     headers: {
         'Content-Type': 'application/json'
     }
-})
+});
 
 axiosJson.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
@@ -22,4 +22,4 @@ axiosJson.interceptors.request.use(
     (error: AxiosError) => Promise.reject(error),
 );
 
-export default axiosJson
+export default axiosJson;

@@ -23,7 +23,7 @@ import {FormEvent, useEffect, useState} from "react";
 
 const defaultTheme = createTheme();
 
-const SignUp: React.FC = observer(() => {
+export const SignUp: React.FC = observer(() => {
     const navigate = useNavigate();
     const {
         validateUsername,
@@ -172,4 +172,4 @@ const SignUp: React.FC = observer(() => {
         </ThemeProvider>
     );
 })
-export default SignUp
+

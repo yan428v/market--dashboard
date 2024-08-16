@@ -5,9 +5,9 @@ import MorrisChartPage from "../../pages/MorrisChartPage.tsx";
 import ErrorPage from "../../pages/ErrorPage.tsx";
 import Dashboard from "../../pages/Dashboard.tsx";
 import Statistics from "../../components/tables/Statistics.tsx";
-import SignIn from "../../pages/SignIn.tsx";
 import {PrivateRoute} from "./PrivateRoute.tsx";
-import SignUp from "../../pages/SignUp.tsx";
+import {SignUp} from "../../pages/SignUp.tsx";
+import {SignIn} from "../../pages/SignIn.tsx";
 
 const router = createBrowserRouter([
     {
