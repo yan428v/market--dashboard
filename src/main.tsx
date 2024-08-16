@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import {Suspense} from 'react';
 import Loader from './components/widgets/Loader.tsx';
 import {RouterProvider} from 'react-router-dom';
-import router from './app/router.tsx';
+import router from './app/routes/router.tsx';
 
 import 'animate.css/animate.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

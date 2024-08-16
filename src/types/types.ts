@@ -12,3 +12,14 @@ export interface CampaignStatistics {
     costPerConversion: number;
     impressions: number;
 }
+export interface IUser {
+    id?: string;
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    status?: string;
+    role?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+}
