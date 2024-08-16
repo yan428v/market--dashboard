@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,13 +11,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useNavigate} from 'react-router-dom';
-import {useValidation} from "../utils/useValidation";
-import {observer} from "mobx-react-lite";
-import {appStore} from "../store/AppStore.tsx";
-import {authStore} from "../store/AuthStore.ts";
-import {signUp} from "../api/authApi.ts";
-import {FormEvent, useEffect, useState} from "react";
-
+import {useValidation} from '../utils/useValidation';
+import {observer} from 'mobx-react-lite';
+import {appStore} from '../store/AppStore.tsx';
+import {authStore} from '../store/AuthStore.ts';
+import {signUp} from '../api/authApi.ts';
+import {FormEvent, useState} from 'react';
 
 const defaultTheme = createTheme();
 
@@ -36,17 +33,16 @@ export const SignUp: React.FC = observer(() => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
-    useEffect(() => {
-        const savedEmail = localStorage.getItem('email');
-        const savedPassword = localStorage.getItem('password');
+    // useEffect(() => {
+    //     const savedEmail = localStorage.getItem('email');
+    //     const savedPassword = localStorage.getItem('password');
+    //     if (savedEmail && savedPassword) {
+    //         setEmail(savedEmail);
+    //         setPassword(savedPassword);
+    //     }
+    // }, []);
 
-        if (savedEmail && savedPassword) {
-            setEmail(savedEmail);
-            setPassword(savedPassword);
-        }
-    }, []);
-
-    const handleSubmit = async (event: FormEvent) => {
+    const handleSignUp = async (event: FormEvent) => {
         event.preventDefault();
         const values = {
             email: email,
@@ -65,18 +61,23 @@ export const SignUp: React.FC = observer(() => {
             localStorage.setItem('email', values.email);
             localStorage.setItem('password', values.password);
 
-            const response = await signUp(values)
+            const response = await signUp(values);
 
             await authStore.setToken(response.data.token);
+            authStore.setUser({
+                email: values.email,
+                firstName: values.firstName,
+                lastName: values.lastName,
+            });
 
             appStore.setIsLoading(false);
-            console.log('Registration successful!')
-            navigate('/');
+            console.log('Регистрация прошла успешно!');
+            navigate('/dashboard');
             appStore.showSuccessMessage('Регистрация прошла успешно!');
         } catch (e: any) {
             appStore.setIsLoading(false);
-            appStore.handleError(e, `Registration failed. ${e.message}`);
-            console.log('Registration failed')
+            appStore.handleError(e, `Ошибка регистрации. ${e.message}`);
+            console.log('Ошибка регистрации');
         }
     };
 
@@ -98,7 +99,7 @@ export const SignUp: React.FC = observer(() => {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -171,5 +172,5 @@ export const SignUp: React.FC = observer(() => {
             </Container>
         </ThemeProvider>
     );
-})
+});
 

@@ -1,6 +1,6 @@
 import {FC, useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {authStore} from "../../store/AuthStore.ts";
+import {authStore} from '../../store/AuthStore.ts';
 import { useNavigate } from 'react-router-dom';
 // import {appStore} from "../../store/AppStore.tsx";
 
@@ -47,9 +47,9 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
     };
 
     const handleLogout = () => {
+        authStore.clearUser();
         authStore.clearToken();
         navigate('/signin');
-
     };
 
     useEffect(() => {
@@ -83,7 +83,8 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
             <div className="header-content">
                 <div className="header-left" ref={menuRef}>
                     <ul>
-                        <li className={`icons position-relative ${activeIcon === 'search' ? 'active' : ''}`} onClick={() => handleIconClick('search')}>
+                        <li className={`icons position-relative ${activeIcon === 'search' ? 'active' : ''}`}
+                            onClick={() => handleIconClick('search')}>
                             <a href="#">
                                 <i className="icon-magnifier f-s-16"></i>
                             </a>
@@ -108,7 +109,8 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                 </div>
                 <div className="header-right" ref={menuRef}>
                     <ul>
-                        <li className={`icons ${activeIcon === 'notifications' ? 'active' : ''}`} onClick={() => handleIconClick('notifications')}>
+                        <li className={`icons ${activeIcon === 'notifications' ? 'active' : ''}`}
+                            onClick={() => handleIconClick('notifications')}>
                             <a href="#">
                                 <i className="mdi mdi-bell f-s-18" aria-hidden="true"></i>
                                 {/*<div className="pulse-css"></div>*/}
@@ -166,7 +168,8 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                                 </div>
                             </div>
                         </li>
-                        <li className={`icons ${activeIcon === 'messages' ? 'active' : ''}`} onClick={() => handleIconClick('messages')}>
+                        <li className={`icons ${activeIcon === 'messages' ? 'active' : ''}`}
+                            onClick={() => handleIconClick('messages')}>
                             <a href="#">
                                 <i className="mdi mdi-comment f-s-18" aria-hidden="true"></i>
                                 {/*<div className="pulse-css"></div>*/}
@@ -224,7 +227,8 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                                 </div>
                             </div>
                         </li>
-                        <li className={`icons ${activeIcon === 'progress' ? 'active' : ''}`} onClick={() => handleIconClick('progress')}>
+                        <li className={`icons ${activeIcon === 'progress' ? 'active' : ''}`}
+                            onClick={() => handleIconClick('progress')}>
                             <a href="#">
                                 <i className="mdi mdi-crosshairs-gps f-s-18" aria-hidden="true"></i>
                                 {/*<div className="pulse-css"></div>*/}
@@ -241,7 +245,8 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                                                     <small className="notification-timestamp pull-right">85% Complete</small>
                                                     <div className="notification-heading">Task One</div>
                                                     <div className="progress">
-                                                        <div style={{ width: '85%' }} className="progress-bar progress-bar-success"></div>
+                                                        <div style={{ width: '85%' }}
+                                                            className="progress-bar progress-bar-success"></div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -252,7 +257,8 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                                                     <small className="notification-timestamp pull-right">60% Complete</small>
                                                     <div className="notification-heading">Task Two</div>
                                                     <div className="progress">
-                                                        <div style={{ width: '60%' }}  className="progress-bar progress-bar-primary"></div>
+                                                        <div style={{ width: '60%' }}
+                                                            className="progress-bar progress-bar-primary"></div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -263,7 +269,8 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                                                     <small className="notification-timestamp pull-right">25% Complete</small>
                                                     <div className="notification-heading">Task Three</div>
                                                     <div className="progress">
-                                                        <div style={{ width: '25%' }} className="progress-bar progress-bar-warning"></div>
+                                                        <div style={{ width: '25%' }}
+                                                            className="progress-bar progress-bar-warning"></div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -274,7 +281,8 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                                                     <small className="notification-timestamp pull-right">75% Complete</small>
                                                     <div className="notification-heading">Task Four</div>
                                                     <div className="progress">
-                                                        <div style={{ width: '75%' }} className="progress-bar progress-bar-danger"></div>
+                                                        <div style={{ width: '75%' }}
+                                                            className="progress-bar progress-bar-danger"></div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -286,7 +294,8 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                                 </div>
                             </div>
                         </li>
-                        <li className={`icons ${activeIcon === 'profile' ? 'active' : ''}`} onClick={() => handleIconClick('profile')}>
+                        <li className={`icons ${activeIcon === 'profile' ? 'active' : ''}`}
+                            onClick={() => handleIconClick('profile')}>
                             <a href="#">
                                 <i className="mdi mdi-account f-s-20" aria-hidden="true"></i>
                             </a>

@@ -15,7 +15,7 @@ const Sidebar = () => {
                     <ul className="metismenu">
                         <li className="nav-label">Main</li>
                         <li>
-                            <Link to="/">
+                            <Link to="/dashboard">
                                 <i className="mdi mdi-view-dashboard"></i>
                                 <span className="nav-text">Dashboard</span>
                             </Link>

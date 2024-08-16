@@ -1,16 +1,25 @@
 import { jwtDecode } from 'jwt-decode';
 import { makeAutoObservable } from 'mobx';
 import {validateToken} from '../api/authApi.ts';
-// import { dataStore } from "./DataStore";
+import {appStore} from './AppStore.tsx';
 
 class AuthStore {
     token: string | null = null;
     tokenValid: boolean | null = null;
+    user: { email: string; firstName: string; lastName: string } | null = null;
 
     constructor() {
         makeAutoObservable(this);
         this.token = localStorage.getItem('token');
         this.tokenValid = this.token ? !this.isTokenExpired(this.token) : false;
+    }
+
+    setUser(user: { email: string; firstName: string; lastName: string }) {
+        this.user = user;
+    }
+
+    clearUser() {
+        this.user = null;
     }
 
     async setToken(token: string) {
@@ -19,8 +28,8 @@ class AuthStore {
             localStorage.setItem('token', token);
             this.tokenValid = await this.isValidToken() || false;
         } catch (e) {
+            appStore.handleError(e, 'Token is not valid');
             this.tokenValid = false;
-            // dataStore.handleError(e, "Token is not valid");
         }
     }
 
@@ -38,7 +47,7 @@ class AuthStore {
                 this.tokenValid = false;
             }
         } catch (e) {
-            // dataStore.handleError(e, "Token validation error");
+            appStore.handleError(e, 'Token validation error');
             this.tokenValid = false;
             return false;
         }

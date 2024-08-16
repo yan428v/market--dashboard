@@ -6,7 +6,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:react/recommended',
-
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -37,7 +36,6 @@ module.exports = {
     'no-shadow': 'off',
     'import/extensions': 'off',
     'no-underscore-dangle': 'off',
-    'i18next/no-literal-string': ['off'],
     'max-len': ['warn', 130, { ignoreComments: true }],
     'space-infix-ops': 'off',
     'arrow-body-style': 'off',
@@ -52,13 +50,9 @@ module.exports = {
         'i18next/no-literal-string': 'off',
       },
     },
-
   ],
   settings: {
     react: {
-      version: 'detect',
-    },
-    jest: {
       version: 'detect',
     },
     'import/resolver': {

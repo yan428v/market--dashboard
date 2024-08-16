@@ -2,8 +2,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,21 +11,57 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
 import {observer} from 'mobx-react-lite';
-import {FormEvent, useState} from 'react';
+import {FormEvent, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {appStore} from '../store/AppStore.tsx';
+import {login} from '../api/authApi.ts';
+import {authStore} from '../store/AuthStore.ts';
 
 const defaultTheme = createTheme();
 
 export const SignIn: React.FC = observer(() => {
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const handleSubmit = async (event: FormEvent) => {
+
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('email');
+        const savedPassword = localStorage.getItem('password');
+        if (savedEmail && savedPassword) {
+            setEmail(savedEmail);
+            setPassword(savedPassword);
+        }
+    }, []);
+
+    const handleSignIn = async (event: FormEvent) => {
         event.preventDefault();
         const values = {
             email: email,
             password: password,
         };
+        try {
+            appStore.setIsLoading(true);
+
+            localStorage.setItem('email', values.email);
+            localStorage.setItem('password', values.password);
+
+            const response = await login(values);
+
+            await authStore.setToken(response.data.token);
+
+            appStore.setIsLoading(false);
+            if (authStore.tokenValid) {
+                navigate('/dashboard');
+            }
+            appStore.showSuccessMessage('Вход выполнен!');
+        } catch (e: any) {
+            appStore.setIsLoading(false);
+            appStore.handleError(e, 'Login failed');
+        }
     };
+
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
@@ -46,11 +80,9 @@ export const SignIn: React.FC = observer(() => {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
+                    <Box component="form" onSubmit={handleSignIn} noValidate sx={{mt: 1}}>
                         <TextField
                             margin="normal"
-
-
                             required
                             fullWidth
                             id="email"
@@ -73,10 +105,6 @@ export const SignIn: React.FC = observer(() => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
 
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary"/>}
-                            label="Remember me"
                         />
                         <Button
                             type="submit"

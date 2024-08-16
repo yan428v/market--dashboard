@@ -26,7 +26,6 @@ export const signUp = async (userData: IUser) => {
 export const validateToken = async (token: string) => {
     try {
         const response = await axiosJson.get(`/auth/validateToken/${token}`);
-
         if(response.data.status === 'success') {
             return true;
         } else {
