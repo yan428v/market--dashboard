@@ -11,8 +11,6 @@ export const login = async (userData: { email: string; password: string }) => {
     }
 };
 
-
-
 export const signUp = async (userData: IUser) => {
     try {
         const response = await axiosJson.post('/auth/registration', userData);

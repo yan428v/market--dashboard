@@ -53,7 +53,6 @@ class AuthStore {
         }
     }
 
-
     isTokenExpired(token: string): boolean {
         try {
             const decoded: any = jwtDecode(token);

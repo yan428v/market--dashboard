@@ -1,10 +1,10 @@
 import {Breadcrumb, Card, Container, Row, Col} from 'react-bootstrap';
-import FloatLine1 from "../components/charts/FloatLine1.tsx";
-import FloatLine2 from "../components/charts/FloatLine2.tsx";
-import FloatLine3 from "../components/charts/FloatLine3.tsx";
-import FloatLine4 from "../components/charts/FloatLine4.tsx";
-import FloatBar1 from "../components/charts/FloatBar1.tsx";
-import FloatBar2 from "../components/charts/FloatBar2.tsx";
+import FloatLine1 from '../components/charts/FloatLine1.tsx';
+import FloatLine2 from '../components/charts/FloatLine2.tsx';
+import FloatLine3 from '../components/charts/FloatLine3.tsx';
+import FloatLine4 from '../components/charts/FloatLine4.tsx';
+import FloatBar1 from '../components/charts/FloatBar1.tsx';
+import FloatBar2 from '../components/charts/FloatBar2.tsx';
 
 const FloatChartPage = () => (
     <div className="content-body">

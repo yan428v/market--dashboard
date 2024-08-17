@@ -40,8 +40,8 @@ module.exports = {
     'space-infix-ops': 'off',
     'arrow-body-style': 'off',
     'react/require-default-props': 'off',
-    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
-    'no-nested-ternary': ['off'],
+    'no-nested-ternary': 'off',
+    "no-param-reassign": 'off'
   },
   overrides: [
     {

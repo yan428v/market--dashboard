@@ -35,7 +35,6 @@ class AppStore {
     }
 
     closeSuccessSnackbar() {
-
         this.isSuccessSnackbarOpen = false;
     }
 

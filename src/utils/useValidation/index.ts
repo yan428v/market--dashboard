@@ -3,7 +3,7 @@ import { validatePassword } from './passwordValidator';
 import { validateUsername } from './usernameValidator';
 
 export const useValidation = () => ({
-  validateEmail,
-  validatePassword,
-  validateUsername,
+    validateEmail,
+    validatePassword,
+    validateUsername,
 });
