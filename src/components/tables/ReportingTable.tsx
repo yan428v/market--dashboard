@@ -171,7 +171,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
                     id="tableTitle"
                     component="div"
                 >
-                    Nutrition
+                    Reporting
                 </Typography>
             )}
             {numSelected > 0 ? (
@@ -190,13 +190,13 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Toolbar>
     );
 }
-export default function EnhancedTable() {
+export default function ReportingTable() {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof CampaignStatistics>('campaignName');
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(30);
+    const [rowsPerPage, setRowsPerPage] = React.useState(50);
 
     const handleRequestSort = (
         _event: React.MouseEvent<unknown>,
@@ -268,103 +268,101 @@ export default function EnhancedTable() {
     );
 
     return (
-        <div className="content-body">
-            <div className="container">
-                <Box sx={{ width: '100%' }}>
-                    <Paper sx={{ width: '100%', mb: 2 }}>
-                        <EnhancedTableToolbar numSelected={selected.length} />
-                        <TableContainer>
-                            <Table
-                                sx={{ minWidth: 750 }}
-                                aria-labelledby="tableTitle"
-                                size={dense ? 'small' : 'medium'}
-                            >
-                                <EnhancedTableHead
-                                    numSelected={selected.length}
-                                    order={order}
-                                    orderBy={orderBy}
-                                    onSelectAllClick={handleSelectAllClick}
-                                    onRequestSort={handleRequestSort}
-                                    rowCount={rows.length}
-                                />
-                                <TableBody>
-                                    {visibleRows.map((row, index) => {
-                                        const isItemSelected = isSelected(row.id);
-                                        const labelId = `enhanced-table-checkbox-${index}`;
-                                        const options:{
+        <div>
+            <Box sx={{ width: '100%' }}>
+                <Paper sx={{ width: '100%', mb: 2 }}>
+                    <EnhancedTableToolbar numSelected={selected.length} />
+                    <TableContainer>
+                        <Table
+                            sx={{ minWidth: 750 }}
+                            aria-labelledby="tableTitle"
+                            size={dense ? 'small' : 'medium'}
+                        >
+                            <EnhancedTableHead
+                                numSelected={selected.length}
+                                order={order}
+                                orderBy={orderBy}
+                                onSelectAllClick={handleSelectAllClick}
+                                onRequestSort={handleRequestSort}
+                                rowCount={rows.length}
+                            />
+                            <TableBody>
+                                {visibleRows.map((row, index) => {
+                                    const isItemSelected = isSelected(row.id);
+                                    const labelId = `enhanced-table-checkbox-${index}`;
+                                    const options:{
                                             year: 'numeric',
                                             month: '2-digit',
                                             day: '2-digit'
                                         } = { year: 'numeric', month: '2-digit', day: '2-digit'};
-                                        const formattedDate = new Date(row.date).toLocaleDateString('ru-RU', options);
+                                    const formattedDate = new Date(row.date).toLocaleDateString('ru-RU', options);
 
-                                        return (
-                                            <TableRow
-                                                hover
-                                                onClick={(event) => handleClick(event, Number(row.id))}
-                                                role="checkbox"
-                                                aria-checked={isItemSelected}
-                                                tabIndex={-1}
-                                                key={row.id}
-                                                selected={isItemSelected}
-                                                sx={{ cursor: 'pointer' }}
-                                            >
-                                                <TableCell padding="checkbox">
-                                                    <Checkbox
-                                                        color="primary"
-                                                        checked={isItemSelected}
-                                                        inputProps={{
-                                                            'aria-labelledby': labelId,
-                                                        }}
-                                                    />
-                                                </TableCell>
-                                                <TableCell
-                                                    component="th"
-                                                    id={labelId}
-                                                    scope="row"
-                                                    padding="none"
-                                                >
-                                                    {row.campaignName}
-                                                </TableCell>
-                                                <TableCell align="right">{formattedDate}</TableCell>
-                                                <TableCell align="right">{row.clicks}</TableCell>
-                                                <TableCell align="right">{row.impressions}</TableCell>
-                                                <TableCell align="right">{row.cost}</TableCell>
-                                                <TableCell align="right">{row.ctr}</TableCell>
-                                                <TableCell align="right">{row.avgCpc}</TableCell>
-                                                <TableCell align="right">{row.conversions}</TableCell>
-                                                <TableCell align="right">{row.costPerConversion}</TableCell>
-                                            </TableRow>
-                                        );
-                                    })}
-                                    {emptyRows > 0 && (
+                                    return (
                                         <TableRow
-                                            style={{
-                                                height: (dense ? 33 : 53) * emptyRows,
-                                            }}
+                                            hover
+                                            onClick={(event) => handleClick(event, Number(row.id))}
+                                            role="checkbox"
+                                            aria-checked={isItemSelected}
+                                            tabIndex={-1}
+                                            key={row.id}
+                                            selected={isItemSelected}
+                                            sx={{ cursor: 'pointer' }}
                                         >
-                                            <TableCell colSpan={6} />
+                                            <TableCell padding="checkbox">
+                                                <Checkbox
+                                                    color="primary"
+                                                    checked={isItemSelected}
+                                                    inputProps={{
+                                                        'aria-labelledby': labelId,
+                                                    }}
+                                                />
+                                            </TableCell>
+                                            <TableCell
+                                                component="th"
+                                                id={labelId}
+                                                scope="row"
+                                                padding="none"
+                                            >
+                                                {row.campaignName}
+                                            </TableCell>
+                                            <TableCell align="right">{formattedDate}</TableCell>
+                                            <TableCell align="right">{row.clicks}</TableCell>
+                                            <TableCell align="right">{row.impressions}</TableCell>
+                                            <TableCell align="right">{row.cost}</TableCell>
+                                            <TableCell align="right">{row.ctr}</TableCell>
+                                            <TableCell align="right">{row.avgCpc}</TableCell>
+                                            <TableCell align="right">{row.conversions}</TableCell>
+                                            <TableCell align="right">{row.costPerConversion}</TableCell>
                                         </TableRow>
-                                    )}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <TablePagination
-                            rowsPerPageOptions={[30, 50, 100]}
-                            component="div"
-                            count={rows.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                        />
-                    </Paper>
-                    <FormControlLabel
-                        control={<Switch checked={dense} onChange={handleChangeDense} />}
-                        label="Dense padding"
+                                    );
+                                })}
+                                {emptyRows > 0 && (
+                                    <TableRow
+                                        style={{
+                                            height: (dense ? 33 : 53) * emptyRows,
+                                        }}
+                                    >
+                                        <TableCell colSpan={6} />
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[50, 100, 200]}
+                        component="div"
+                        count={rows.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
                     />
-                </Box>
-            </div>
+                </Paper>
+                <FormControlLabel
+                    control={<Switch checked={dense} onChange={handleChangeDense} />}
+                    label="Dense padding"
+                />
+            </Box>
         </div>
     );
 }

@@ -52,6 +52,8 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
         navigate('/signin');
     };
 
+    const userEmail  = localStorage.getItem('email');
+
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, true);
         return () => {
@@ -302,6 +304,12 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                             <div className="drop-down dropdown-profile animate__animated animate__bounceInDown">
                                 <div className="dropdown-content-body">
                                     <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i className="mdi mdi-account"></i>
+                                                <span>{userEmail}</span>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a href="#">
                                                 <i className="mdi mdi-email"></i>

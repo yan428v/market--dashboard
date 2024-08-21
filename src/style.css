@@ -1391,7 +1391,7 @@ h6 {
 }
 
 .dropdown-profile {
-  width: 160px;
+  width: 225px;
 }
 .dropdown-profile li {
   padding: 7px 15px;
@@ -6509,7 +6509,7 @@ input[type=checkbox]:not(:disabled) ~ .lever:active::after {
   border-top: 1px solid rgba(120, 130, 140, 0.13);
 }
 .body.v-light .dropdown-content-body li.active, .body.v-light .dropdown-content-body li:focus, .body.v-light .dropdown-content-body li:hover {
-  background: white;
+  background: #f5f5f5;
   border-top: 1px solid rgba(120, 130, 140, 0.13);
 }
 .body.v-light .dropdown-content-body li a {
@@ -8562,6 +8562,10 @@ input[type=checkbox]:not(:disabled) ~ .lever:active::after {
 
 .m-t-150 {
   margin-top: 150px !important
+}
+
+.m-l-20 {
+  margin-left: 20px !important
 }
 
 .m-r-0 {

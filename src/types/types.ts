@@ -23,3 +23,16 @@ export interface IUser {
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+export interface DailyStatistics {
+    id:number;
+    date: string;
+    dayOfWeek: string;
+    clicks: number;
+    impressions: number;
+    avgCpc: number;
+    cost: number;
+    conversions: number;
+    costPerConversion: number;
+    ctr: number;
+}
