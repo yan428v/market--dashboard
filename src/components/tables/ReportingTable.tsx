@@ -23,9 +23,9 @@ import { visuallyHidden } from '@mui/utils';
 import {CampaignStatistics} from '../../types/types.ts';
 import {getAllStatistics} from '../../api/statisticsApi.ts';
 
-
 const rows = await getAllStatistics();
 // console.log(rows);
+
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -190,9 +190,9 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Toolbar>
     );
 }
-export default function ReportingTable() {
-    const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof CampaignStatistics>('campaignName');
+const ReportingTable = () => {
+    const [order, setOrder] = React.useState<Order>('desc');
+    const [orderBy, setOrderBy] = React.useState<keyof CampaignStatistics>('date');
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
@@ -209,7 +209,7 @@ export default function ReportingTable() {
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n:CampaignStatistics) => n.id);
+            const newSelected = rows.map((n: CampaignStatistics) => n.id);
             setSelected(newSelected);
             return;
         }
@@ -269,12 +269,12 @@ export default function ReportingTable() {
 
     return (
         <div>
-            <Box sx={{ width: '100%' }}>
-                <Paper sx={{ width: '100%', mb: 2 }}>
-                    <EnhancedTableToolbar numSelected={selected.length} />
+            <Box sx={{width: '100%'}}>
+                <Paper sx={{width: '100%', mb: 2}}>
+                    <EnhancedTableToolbar numSelected={selected.length}/>
                     <TableContainer>
                         <Table
-                            sx={{ minWidth: 750 }}
+                            sx={{minWidth: 750}}
                             aria-labelledby="tableTitle"
                             size={dense ? 'small' : 'medium'}
                         >
@@ -290,11 +290,11 @@ export default function ReportingTable() {
                                 {visibleRows.map((row, index) => {
                                     const isItemSelected = isSelected(row.id);
                                     const labelId = `enhanced-table-checkbox-${index}`;
-                                    const options:{
-                                            year: 'numeric',
-                                            month: '2-digit',
-                                            day: '2-digit'
-                                        } = { year: 'numeric', month: '2-digit', day: '2-digit'};
+                                    const options: {
+                                        year: 'numeric',
+                                        month: '2-digit',
+                                        day: '2-digit'
+                                    } = {year: 'numeric', month: '2-digit', day: '2-digit'};
                                     const formattedDate = new Date(row.date).toLocaleDateString('ru-RU', options);
 
                                     return (
@@ -306,7 +306,7 @@ export default function ReportingTable() {
                                             tabIndex={-1}
                                             key={row.id}
                                             selected={isItemSelected}
-                                            sx={{ cursor: 'pointer' }}
+                                            sx={{cursor: 'pointer'}}
                                         >
                                             <TableCell padding="checkbox">
                                                 <Checkbox
@@ -342,7 +342,7 @@ export default function ReportingTable() {
                                             height: (dense ? 33 : 53) * emptyRows,
                                         }}
                                     >
-                                        <TableCell colSpan={6} />
+                                        <TableCell colSpan={6}/>
                                     </TableRow>
                                 )}
                             </TableBody>
@@ -359,10 +359,12 @@ export default function ReportingTable() {
                     />
                 </Paper>
                 <FormControlLabel
-                    control={<Switch checked={dense} onChange={handleChangeDense} />}
+                    control={<Switch checked={dense} onChange={handleChangeDense}/>}
                     label="Dense padding"
                 />
             </Box>
         </div>
     );
-}
+};
+
+export default ReportingTable;

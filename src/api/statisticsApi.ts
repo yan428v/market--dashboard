@@ -12,7 +12,7 @@ export const getAllStatistics = async () => {
 };
 export const getDailyStatistics = async () => {
     try {
-        const response = await axiosJson.get('/statistics');
+        const response = await axiosJson.get('/statistics/daily');
         // console.log(response.data.data)
         return response.data.data;
     } catch (e) {

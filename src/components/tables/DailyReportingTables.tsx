@@ -20,12 +20,11 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import {getDailyStatistics} from '../../api/statisticsApi.ts';
 import {DailyStatistics} from '../../types/types.ts';
-
+import {getDailyStatistics} from '../../api/statisticsApi.ts';
 
 const rows = await getDailyStatistics();
-console.log(rows);
+// console.log(rows);
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -171,7 +170,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
                     id="tableTitle"
                     component="div"
                 >
-                    Reporting 2
+                    Daily reporting
                 </Typography>
             )}
             {numSelected > 0 ? (
@@ -191,7 +190,8 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
     );
 }
 export default function DailyReportingTables() {
-    const [order, setOrder] = React.useState<Order>('asc');
+
+    const [order, setOrder] = React.useState<Order>('desc');
     const [orderBy, setOrderBy] = React.useState<keyof DailyStatistics>('date');
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
