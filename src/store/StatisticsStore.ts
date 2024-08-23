@@ -8,6 +8,8 @@ class StatisticsStore {
 
     constructor() {
         makeAutoObservable(this);
+        this.loadAllStatistics();
+        this.loadDailyStatistics();
     }
 
     async loadDailyStatistics() {

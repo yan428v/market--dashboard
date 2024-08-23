@@ -15,16 +15,13 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import {DailyStatistics} from '../../types/types.ts';
-import {getDailyStatistics} from '../../api/statisticsApi.ts';
+import {statisticsStore} from '../../store/StatisticsStore.ts';
+import {observer} from 'mobx-react-lite';
 
-const rows = await getDailyStatistics();
-// console.log(rows);
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -135,14 +132,12 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         </TableHead>
     );
 }
-
 interface EnhancedTableToolbarProps {
     numSelected: number;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
     const { numSelected } = props;
-
     return (
         <Toolbar
             sx={{
@@ -189,14 +184,14 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Toolbar>
     );
 }
-export default function DailyReportingTables() {
+const DailyReportingTable = observer(() => {
 
     const [order, setOrder] = React.useState<Order>('desc');
     const [orderBy, setOrderBy] = React.useState<keyof DailyStatistics>('date');
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(50);
+    const rows = statisticsStore.dailyStatistics;
 
     const handleRequestSort = (
         _event: React.MouseEvent<unknown>,
@@ -248,10 +243,6 @@ export default function DailyReportingTables() {
         setPage(0);
     };
 
-    const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDense(event.target.checked);
-    };
-
     const isSelected = (id: string | number) => selected.indexOf(Number(id)) !== -1;
 
     // Avoid a layout jump when reaching the last page with empty rows.
@@ -276,7 +267,7 @@ export default function DailyReportingTables() {
                         <Table
                             sx={{ minWidth: 750 }}
                             aria-labelledby="tableTitle"
-                            size={dense ? 'small' : 'medium'}
+                            size={'small'}
                         >
                             <EnhancedTableHead
                                 numSelected={selected.length}
@@ -339,7 +330,7 @@ export default function DailyReportingTables() {
                                 {emptyRows > 0 && (
                                     <TableRow
                                         style={{
-                                            height: (dense ? 33 : 53) * emptyRows,
+                                            height: 33 * emptyRows,
                                         }}
                                     >
                                         <TableCell colSpan={6} />
@@ -358,11 +349,8 @@ export default function DailyReportingTables() {
                         onRowsPerPageChange={handleChangeRowsPerPage}
                     />
                 </Paper>
-                <FormControlLabel
-                    control={<Switch checked={dense} onChange={handleChangeDense} />}
-                    label="Dense padding"
-                />
             </Box>
         </div>
     );
-}
+});
+export default DailyReportingTable;

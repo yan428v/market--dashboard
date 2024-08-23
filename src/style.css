@@ -13134,3 +13134,46 @@ input[type=checkbox]:not(:disabled) ~ .lever:active::after {
 .right-50 {
   right: 50px
 }
+
+.grouping-date {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  /*margin-bottom: 15px;*/
+}
+
+.date-picker-container {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+
+}
+
+.sorting-container{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
