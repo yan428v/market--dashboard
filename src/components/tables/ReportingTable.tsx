@@ -22,6 +22,7 @@ import {CampaignStatistics} from '../../types/types.ts';
 import {statisticsStore} from '../../store/StatisticsStore.ts';
 import {observer} from 'mobx-react-lite';
 
+
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -65,15 +66,15 @@ interface HeadCell {
 }
 
 const headCells: readonly HeadCell[] = [
-    { id: 'campaignName', numeric: false, disablePadding: true, label: 'Campaign Name' },
-    { id: 'date', numeric: false, disablePadding: false, label: 'Date' },
-    { id: 'clicks', numeric: true, disablePadding: false, label: 'Clicks' },
-    { id: 'impressions', numeric: true, disablePadding: false, label: 'Impressions' },
-    { id: 'cost', numeric: true, disablePadding: false, label: 'Cost' },
-    { id: 'ctr', numeric: true, disablePadding: false, label: 'CTR (%)' },
-    { id: 'avgCpc', numeric: true, disablePadding: false, label: 'Avg CPC' },
-    { id: 'conversions', numeric: true, disablePadding: false, label: 'Conversions' },
-    { id: 'costPerConversion', numeric: true, disablePadding: false, label: 'Cost/Conv' },
+    { id: 'campaignName', numeric: false, disablePadding: true, label: 'Название компании' },
+    { id: 'date', numeric: false, disablePadding: false, label: 'Дата' },
+    { id: 'clicks', numeric: true, disablePadding: false, label: 'Клики' },
+    { id: 'impressions', numeric: true, disablePadding: false, label: 'Показы' },
+    { id: 'cost', numeric: true, disablePadding: false, label: 'Расход' },
+    { id: 'ctr', numeric: true, disablePadding: false, label: 'CTR(%)' },
+    { id: 'avgCpc', numeric: true, disablePadding: false, label: 'CPC' },
+    { id: 'conversions', numeric: true, disablePadding: false, label: 'Конверсии' },
+    { id: 'costPerConversion', numeric: true, disablePadding: false, label: 'Цена конверсии' },
 ];
 
 interface EnhancedTableProps {
@@ -167,7 +168,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
                     id="tableTitle"
                     component="div"
                 >
-                    Reporting
+                    Аналитика полная
                 </Typography>
             )}
             {numSelected > 0 ? (
@@ -192,6 +193,9 @@ const ReportingTable = observer(() => {
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(50);
+
+
+
     const rows = statisticsStore.allStatistics;
 
     const handleRequestSort = (

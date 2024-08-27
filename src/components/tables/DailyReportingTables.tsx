@@ -19,8 +19,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import {DailyStatistics} from '../../types/types.ts';
-import {statisticsStore} from '../../store/StatisticsStore.ts';
 import {observer} from 'mobx-react-lite';
+import {statisticsStore} from '../../store/StatisticsStore.ts';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -65,15 +65,15 @@ interface HeadCell {
 }
 
 const headCells: readonly HeadCell[] = [
-    { id: 'dayOfWeek', numeric: false, disablePadding: true, label: 'Day of the week' },
-    { id: 'date', numeric: false, disablePadding: false, label: 'Date' },
-    { id: 'clicks', numeric: true, disablePadding: false, label: 'Clicks' },
-    { id: 'impressions', numeric: true, disablePadding: false, label: 'Impressions' },
-    { id: 'cost', numeric: true, disablePadding: false, label: 'Cost' },
-    { id: 'ctr', numeric: true, disablePadding: false, label: 'CTR (%)' },
-    { id: 'avgCpc', numeric: true, disablePadding: false, label: 'Avg CPC' },
-    { id: 'conversions', numeric: true, disablePadding: false, label: 'Conversions' },
-    { id: 'costPerConversion', numeric: true, disablePadding: false, label: 'Cost/Conv' },
+    { id: 'dayOfWeek', numeric: false, disablePadding: true, label: 'День недели' },
+    { id: 'date', numeric: false, disablePadding: false, label: 'Дата' },
+    { id: 'clicks', numeric: true, disablePadding: false, label: 'Клики' },
+    { id: 'impressions', numeric: true, disablePadding: false, label: 'Показы' },
+    { id: 'cost', numeric: true, disablePadding: false, label: 'Расход' },
+    { id: 'ctr', numeric: true, disablePadding: false, label: 'CTR(%)' },
+    { id: 'avgCpc', numeric: true, disablePadding: false, label: 'CPC' },
+    { id: 'conversions', numeric: true, disablePadding: false, label: 'Конверсии' },
+    { id: 'costPerConversion', numeric: true, disablePadding: false, label: 'Цена конверсии' },
 ];
 
 interface EnhancedTableProps {
@@ -165,7 +165,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
                     id="tableTitle"
                     component="div"
                 >
-                    Daily reporting
+                    Аналитика по дням
                 </Typography>
             )}
             {numSelected > 0 ? (
