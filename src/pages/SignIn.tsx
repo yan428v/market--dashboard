@@ -57,7 +57,7 @@ export const SignIn: React.FC = observer(() => {
             appStore.showSuccessMessage('Вход выполнен!');
         } catch (e: any) {
             appStore.setIsLoading(false);
-            appStore.handleError(e, 'Login failed');
+            appStore.showErrorMessage(e, 'Login failed');
         }
     };
 

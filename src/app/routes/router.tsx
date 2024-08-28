@@ -8,6 +8,8 @@ import {SignUp} from '../../pages/SignUp.tsx';
 import {SignIn} from '../../pages/SignIn.tsx';
 import {PrivateRoute} from './PrivateRoute.tsx';
 import Statistics from '../../pages/Statistics.tsx';
+import Settings from '../../pages/Settings.tsx';
+
 
 const router = createBrowserRouter([
     {
@@ -22,6 +24,7 @@ const router = createBrowserRouter([
                     { path: '/float', element: <FloatChartPage /> },
                     { path: '/morris', element: <MorrisChartPage /> },
                     { path: '/statistics', element: <Statistics/> },
+                    { path: '/settings', element: <Settings/> },
                     { path: '/*', element: <Navigate to="/dashboard" /> }
                 ]
             },

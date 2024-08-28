@@ -28,7 +28,7 @@ class AuthStore {
             localStorage.setItem('token', token);
             this.tokenValid = await this.isValidToken() || false;
         } catch (e) {
-            appStore.handleError(e, 'Token is not valid');
+            appStore.showErrorMessage(e, 'Token is not valid');
             this.tokenValid = false;
         }
     }
@@ -47,7 +47,7 @@ class AuthStore {
                 this.tokenValid = false;
             }
         } catch (e) {
-            appStore.handleError(e, 'Token validation error');
+            appStore.showErrorMessage(e, 'Token validation error');
             this.tokenValid = false;
             return false;
         }

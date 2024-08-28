@@ -16,7 +16,7 @@ class AppStore {
         this.isLoading = value;
     }
 
-    handleError(e: any, defaultMessage: string) {
+    showErrorMessage(e: any, defaultMessage: string) {
         let errorMessage = defaultMessage;
         if (e.response && e.response.data && e.response.data.message) {
             errorMessage = e.response.data.message;
@@ -25,13 +25,13 @@ class AppStore {
         this.isSnackbarOpen = true;
     }
 
-    closeSnackbar() {
-        this.isSnackbarOpen = false;
-    }
 
     showSuccessMessage(message: string) {
         this.successMessage = message;
         this.isSuccessSnackbarOpen = true;
+    }
+    closeErrorSnackbar() {
+        this.isSnackbarOpen = false;
     }
 
     closeSuccessSnackbar() {
@@ -44,12 +44,12 @@ class AppStore {
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 open={this.isSnackbarOpen}
                 autoHideDuration={6000}
-                onClose={() => this.closeSnackbar()}
+                onClose={() => this.closeErrorSnackbar()}
                 sx={{
                     marginTop: 10
                 }}
             >
-                <Alert onClose={() => this.closeSnackbar()} severity="error" sx={{
+                <Alert onClose={() => this.closeErrorSnackbar()} severity="error" sx={{
                     width: '100%',
                     fontSize: '1.5rem',
                     padding: '16px',

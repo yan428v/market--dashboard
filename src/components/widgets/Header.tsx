@@ -100,10 +100,10 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <Link to="/settings">
                                                 <i className="mdi mdi-settings"></i>
                                                 <span>Setting</span>
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
                                             <Link to="/" onClick={handleLogout}>

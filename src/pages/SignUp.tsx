@@ -76,7 +76,7 @@ export const SignUp: React.FC = observer(() => {
             appStore.showSuccessMessage('Регистрация прошла успешно!');
         } catch (e: any) {
             appStore.setIsLoading(false);
-            appStore.handleError(e, `Ошибка регистрации. ${e.message}`);
+            appStore.showErrorMessage(e, `Ошибка регистрации. ${e.message}`);
             console.log('Ошибка регистрации');
         }
     };

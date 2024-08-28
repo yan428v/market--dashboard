@@ -34,3 +34,4 @@ export const validateToken = async (token: string) => {
         throw error;
     }
 };
+
