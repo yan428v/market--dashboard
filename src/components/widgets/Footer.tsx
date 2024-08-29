@@ -3,7 +3,7 @@ const Footer: React.FC = () => {
         <div className="footer">
             <div className="copyright">
                 <p>
-                    Copyright &copy; <a href="#">Ameen</a> 2018
+                    Copyright &copy; <a href="#">Ameen</a> 2024
                 </p>
             </div>
         </div>

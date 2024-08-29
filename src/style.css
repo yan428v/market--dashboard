@@ -13146,7 +13146,6 @@ input[type=checkbox]:not(:disabled) ~ .lever:active::after {
   display: flex;
   align-items: center;
   margin-right: 20px;
-
 }
 
 .sorting-container{
@@ -13155,7 +13154,10 @@ input[type=checkbox]:not(:disabled) ~ .lever:active::after {
   margin-bottom: 15px;
 
 }
-
+.total-values-container {
+  display: flex;
+  justify-content: space-between;
+}
 
 
 

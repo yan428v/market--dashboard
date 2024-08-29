@@ -1,7 +1,5 @@
 import {createBrowserRouter, Navigate} from 'react-router-dom';
 import Layout from '../Layout.tsx';
-import FloatChartPage from '../../pages/FloatChartPage.tsx';
-import MorrisChartPage from '../../pages/MorrisChartPage.tsx';
 import ErrorPage from '../../pages/ErrorPage.tsx';
 import Dashboard from '../../pages/Dashboard.tsx';
 import {SignUp} from '../../pages/SignUp.tsx';
@@ -21,8 +19,6 @@ const router = createBrowserRouter([
                 children: [
                     { path: '/', element: <Navigate to="/dashboard" /> },
                     { path: '/dashboard', element: <Dashboard /> },
-                    { path: '/float', element: <FloatChartPage /> },
-                    { path: '/morris', element: <MorrisChartPage /> },
                     { path: '/statistics', element: <Statistics/> },
                     { path: '/settings', element: <Settings/> },
                     { path: '/*', element: <Navigate to="/dashboard" /> }

@@ -36,3 +36,21 @@ export interface DailyStatistics {
     costPerConversion: number;
     ctr: number;
 }
+interface DailyStatistic {
+    id: number;
+    date: string;
+    clicks: number;
+    cost: number;
+    conversions: number;
+}
+
+interface TotalStatistics {
+    clicks: number;
+    cost: number;
+    conversions: number;
+}
+
+export interface ChartStatistics {
+        dailyStatistics: DailyStatistic[];
+        totalStatistics: TotalStatistics;
+}

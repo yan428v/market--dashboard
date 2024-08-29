@@ -17,7 +17,6 @@ axiosJson.interceptors.request.use(
         if (token) {
             config.headers = config.headers || {};
             config.headers['authorization'] = `Bearer ${token}`;
-            console.log('Authorization Header:', config.headers['authorization']); // Логирование заголовка
         } else {
             console.log('No token available');
         }
