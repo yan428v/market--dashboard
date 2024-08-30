@@ -1,4 +1,3 @@
-import SalesGraph1 from '../components/charts/SalesGraph1.tsx';
 import Button from '@mui/material/Button';
 import {DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
@@ -10,6 +9,7 @@ import {observer} from 'mobx-react-lite';
 import {useEffect} from 'react';
 import {statisticsStore} from '../store/StatisticsStore.ts';
 import dayjs from 'dayjs';
+import SalesChart from '../components/charts/SalesChart.tsx';
 
 const Dashboard = observer(() => {
     useEffect(() => {
@@ -70,8 +70,7 @@ const Dashboard = observer(() => {
                                         </DemoContainer>
                                     </LocalizationProvider>
                                 </div>
-
-                                <SalesGraph1/>
+                                <SalesChart/>
                                 <h4  className=" f-s-36">
                                     Итого за период:
                                 </h4>

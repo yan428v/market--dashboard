@@ -3,7 +3,7 @@ import {chartStore} from '../../store/ChartStore.ts';
 import {observer} from 'mobx-react-lite';
 import dayjs from 'dayjs';
 
-const SalesGraph1 = observer(() => {
+const SalesChart = observer(() => {
     const rawData = chartStore.chartStatistics?.dailyStatistics;
     const data = rawData?.map(item => ({
         ...item,
@@ -11,11 +11,13 @@ const SalesGraph1 = observer(() => {
     }));
 
     type NameType = 'conversions' | 'cost' | 'clicks';
+
     const translations: Record<NameType, string> = {
         conversions: 'Конверсии',
         cost: 'Стоимость',
         clicks: 'Клики'
     };
+
     return (
         <ResponsiveContainer width="100%" height={300}>
             <LineChart
@@ -32,12 +34,12 @@ const SalesGraph1 = observer(() => {
                         return [value, translatedName];
                     }}
                 />
-                <Line type="monotone" dataKey="conversions" stroke="blue" strokeWidth={2} />
-                <Line type="monotone" dataKey="cost" stroke="green" strokeWidth={2} activeDot={{ r: 5 }} />
-                <Line type="monotone" dataKey="clicks" stroke="red" strokeWidth={2} />
+                <Line type="monotone" dot={false} dataKey="conversions" stroke="blue" strokeWidth={2} />
+                <Line type="monotone" dot={false} dataKey="cost" stroke="green" strokeWidth={2} activeDot={{ r: 5 }} />
+                <Line type="monotone" dot={false} dataKey="clicks" stroke="red" strokeWidth={2} />
             </LineChart>
         </ResponsiveContainer>
     );
 });
 
-export default SalesGraph1;
+export default SalesChart;

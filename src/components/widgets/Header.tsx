@@ -90,7 +90,7 @@ const Header: FC<HeaderProps> = ({ toggleSidebar } ) => {
                             <a href="#">
                                 <i className="mdi mdi-account f-s-20" aria-hidden="true"></i>
                             </a>
-                            <div className="drop-down dropdown-profile animate__animated animate__bounceInDown">
+                            <div className="drop-down dropdown-profile">
                                 <div className="dropdown-content-body">
                                     <ul>
                                         <li>
