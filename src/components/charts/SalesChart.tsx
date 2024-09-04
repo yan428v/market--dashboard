@@ -17,7 +17,6 @@ const SalesChart = observer(() => {
         cost: 'Стоимость',
         clicks: 'Клики'
     };
-
     return (
         <ResponsiveContainer width="100%" height={300}>
             <LineChart

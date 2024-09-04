@@ -1,22 +1,40 @@
-import ReportingTable from '../components/tables/ReportingTable.tsx';
-import {useEffect} from 'react';
-import DailyReportingTables from '../components/tables/DailyReportingTables.tsx';
-
-import {statisticsStore} from '../store/StatisticsStore.ts';
-import {observer} from 'mobx-react-lite';
-import {appStore} from '../store/AppStore.tsx';
-import Loader from '../components/widgets/Loader.tsx';
-import {ButtonGroup} from '@mui/material';
-import Button from '@mui/material/Button';
+import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import { statisticsStore } from '../store/StatisticsStore';
+import { appStore } from '../store/AppStore';
+import Loader from '../components/widgets/Loader';
+import { ButtonGroup, Button } from '@mui/material';
 import dayjs from 'dayjs';
-import {DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
-import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import StatisticsTable from '../components/tables/StatisticsTable';
+
+const createHeadCells = (extraHeadCells: { id: string; numeric: boolean; disablePadding: boolean; label: string }[] = []) => {
+    const baseHeadCells = [
+        { id: 'date', numeric: false, disablePadding: false, label: 'Дата' },
+        { id: 'clicks', numeric: true, disablePadding: false, label: 'Клики' },
+        { id: 'impressions', numeric: true, disablePadding: false, label: 'Показы' },
+        { id: 'cost', numeric: true, disablePadding: false, label: 'Расход' },
+        { id: 'ctr', numeric: true, disablePadding: false, label: 'CTR(%)' },
+        { id: 'avgCpc', numeric: true, disablePadding: false, label: 'CPC' },
+        { id: 'conversions', numeric: true, disablePadding: false, label: 'Конверсии' },
+        { id: 'costPerConversion', numeric: true, disablePadding: false, label: 'Цена конверсии' },
+    ];
+    return [...extraHeadCells, ...baseHeadCells];
+};
+
+const allStatisticsHeadCells = createHeadCells([
+    { id: 'campaignName', numeric: false, disablePadding: true, label: 'Название компании' },
+]);
+const dailyStatisticsHeadCells = createHeadCells([
+    { id: 'dayOfWeek', numeric: false, disablePadding: true, label: 'День недели' },
+]);
 
 const Statistics = observer(() => {
     useEffect(() => {
         statisticsStore.setIntervalTo(dayjs().endOf('day'));
-        if(statisticsStore.allStatistics.length === 0) {
+        if (statisticsStore.allStatistics.length === 0) {
             (async () => {
                 appStore.setIsLoading(true);
                 await statisticsStore.loadAllStatistics();
@@ -40,8 +58,11 @@ const Statistics = observer(() => {
     }
 
     if (appStore.isLoading) {
-        return <Loader/>;
+        return <Loader />;
     }
+
+    const isGroupedByDay = statisticsStore.groupingMode === 'По дням';
+
     return (
         <div className="content-body">
             <div className="container">
@@ -65,11 +86,7 @@ const Statistics = observer(() => {
                             </ButtonGroup>
                         </div>
                         <div className="date-picker-container">
-                            <Button
-                                className="m-r-15"
-                                variant="contained"
-                                onClick={handleUpdateStatistics}
-                            >
+                            <Button className="m-r-15" variant="contained" onClick={handleUpdateStatistics}>
                                 Выбрать период
                             </Button>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -80,7 +97,8 @@ const Statistics = observer(() => {
                                         value={statisticsStore.intervalFrom}
                                         onChange={(newValue) => {
                                             statisticsStore.setIntervalFrom(newValue);
-                                        }}/>
+                                        }}
+                                    />
                                 </DemoContainer>
                                 <DemoContainer components={['DatePicker']}>
                                     <DatePicker
@@ -89,18 +107,21 @@ const Statistics = observer(() => {
                                         value={statisticsStore.intervalTo}
                                         onChange={(newValue) => {
                                             statisticsStore.setIntervalTo(newValue);
-                                        }}/>
+                                        }}
+                                    />
                                 </DemoContainer>
                             </LocalizationProvider>
                         </div>
                     </div>
                 </div>
-                {statisticsStore.groupingMode === 'Без' && <ReportingTable/>}
-                {statisticsStore.groupingMode === 'По дням' && <DailyReportingTables/>}
+                <StatisticsTable
+                    rows={isGroupedByDay ? statisticsStore.dailyStatistics : statisticsStore.allStatistics}
+                    type={isGroupedByDay ? 'daily' : 'all'}
+                    headCells={isGroupedByDay ? dailyStatisticsHeadCells : allStatisticsHeadCells}
+                />
             </div>
-
         </div>
     );
 });
 
-export default Statistics;
+export default Statistics;//

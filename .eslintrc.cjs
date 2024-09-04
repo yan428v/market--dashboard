@@ -41,7 +41,8 @@ module.exports = {
     'arrow-body-style': 'off',
     'react/require-default-props': 'off',
     'no-nested-ternary': 'off',
-    "no-param-reassign": 'off'
+    "no-param-reassign": 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
   overrides: [
     {

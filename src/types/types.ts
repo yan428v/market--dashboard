@@ -54,3 +54,34 @@ export interface ChartStatistics {
         dailyStatistics: DailyStatistic[];
         totalStatistics: TotalStatistics;
 }
+
+interface BaseStatistics {
+    id: number;
+    date: string;
+    clicks: number;
+    impressions: number;
+    cost: number;
+    ctr: number;
+    avgCpc: number;
+    conversions: number;
+    costPerConversion: number;
+    [key: string]: string | number; // ндексная подпись для поддержки строковых индексов
+}
+
+// Полная статистика, расширяет общую статистику
+export interface CampaignStatistics extends BaseStatistics {
+    campaignName: string;
+}
+
+// Дневная статистика, расширяет общую статистику
+export interface DailyStatistics extends BaseStatistics {
+    dayOfWeek: string;
+}
+
+// Тип для заголовка таблицы
+export interface HeadCell {
+    disablePadding: boolean;
+    id: keyof (CampaignStatistics | DailyStatistics); // Типизация ключей на основе объединенного интерфейса
+    label: string;
+    numeric: boolean;
+}
