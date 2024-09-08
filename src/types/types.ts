@@ -1,7 +1,8 @@
 export interface CampaignStatistics {
     id: number;
-    user_id: number;
-    account_id: number;
+    userId: number;
+    marketId: number;
+    accountId: number;
     campaignName: string;
     date: string;
     clicks: number;
@@ -13,7 +14,7 @@ export interface CampaignStatistics {
     impressions: number;
 }
 export interface IUser {
-    id?: string;
+    userId: number;
     email: string;
     password: string;
     firstName: string;
@@ -65,7 +66,7 @@ interface BaseStatistics {
     avgCpc: number;
     conversions: number;
     costPerConversion: number;
-    [key: string]: string | number; // ндексная подпись для поддержки строковых индексов
+    [key: string]: string | number; // индексная подпись для поддержки строковых индексов
 }
 
 // Полная статистика, расширяет общую статистику
@@ -85,3 +86,26 @@ export interface HeadCell {
     label: string;
     numeric: boolean;
 }
+
+export interface IMarket {
+    marketId: number;
+    userId: number;
+    marketName: string;
+    token: string;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

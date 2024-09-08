@@ -25,7 +25,7 @@ const SalesChart = observer(() => {
             >
                 <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false}/>
                 <XAxis dataKey="date" />
-                <YAxis tickCount={3} hide={true}/>
+                <YAxis tickCount={3} hide/>
                 <Tooltip
                     labelFormatter={(label) => `Дата: ${label}`}
                     formatter={(value, name) => {

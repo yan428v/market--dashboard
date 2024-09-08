@@ -9,6 +9,8 @@ interface HeaderProps {
     toggleSidebar: () => void;
 }
 
+
+// todo почистить лишние стейты в компоненте
 const Header: FC<HeaderProps> = ({ toggleSidebar }) => {
     const navigate = useNavigate();
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
@@ -93,10 +95,6 @@ const Header: FC<HeaderProps> = ({ toggleSidebar }) => {
                         </li>
                     </ul>
                 </div>
-
-
-
-
                 <div className="header-right" ref={menuRef}>
                     <ul>
                         <li className="icons" onClick={handleOpen}>

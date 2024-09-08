@@ -1,9 +1,6 @@
 import axios, {AxiosError, InternalAxiosRequestConfig} from 'axios';
 import {authStore} from '../store/AuthStore.ts';
 
-
-
-
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 const base_url = import.meta.env.VITE_BASE_URL;

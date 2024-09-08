@@ -64,12 +64,14 @@ export const SignUp: React.FC = observer(() => {
             const response = await signUp(values);
 
             await authStore.setToken(response.data.token);
+            console.log('Token set:', authStore.token);
             authStore.setUser({
-                email: values.email,
-                firstName: values.firstName,
-                lastName: values.lastName,
+                userId: response.data.userId,
+                email: response.data.email,
+                firstName:  response.data.firstName,
+                lastName: response.data.lastName,
             });
-
+            console.log('User set:', authStore.user);
             appStore.setIsLoading(false);
             console.log('Регистрация прошла успешно!');
             navigate('/dashboard');

@@ -16,15 +16,13 @@ export const getAllStatistics = async (
     try {
         const formattedIntervalFrom = dayjs(intervalFrom).format('YYYY-MM-DD');
         const formattedIntervalTo = dayjs(intervalTo).format('YYYY-MM-DD');
-        console.log(formattedIntervalFrom);
-        console.log(formattedIntervalTo);
+
         const response = await axiosJson.get(statisticsPath, {
             params: {
                 intervalFrom: formattedIntervalFrom,
                 intervalTo: formattedIntervalTo
             }
         });
-        console.log(response.data.data);
         return response.data.data;
     } catch (e) {
         console.error('Error fetching statistics:', e);
@@ -44,7 +42,6 @@ export const getDailyStatistics = async (
                 intervalTo: formattedIntervalTo
             }
         });
-        console.log(response.data.data);
         return response.data.data;
     } catch (e) {
         console.error('Error fetching daily statistics:', e);

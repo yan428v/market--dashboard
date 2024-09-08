@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import {observer} from 'mobx-react-lite';
+import {authStore} from '../../store/AuthStore.ts';
+import {addMarket} from '../../api/marketApi.ts';
 
 interface BasicModalProps {
     open: boolean;
@@ -21,11 +24,26 @@ const style = {
     p: 4,
 };
 
-const AddMarketModal: React.FC<BasicModalProps> = ({ open, handleClose }) => {
-    const handleAddMarket = () => {
+const AddMarketModal: React.FC<BasicModalProps> = observer(({ open, handleClose }) => {
+    const [marketName, setMarketName] = useState('');
+    const [token, setToken] = useState('');
 
-        console.log('Маркет добавлен');
-        handleClose();
+    const handleAddMarket = async () => {
+        try {
+            if (authStore.user) { // Проверяем, что user не null
+                const userId = authStore.user.userId;
+                const data = { marketName, token, userId };
+
+                // Вызываем функцию добавления маркета
+                await addMarket(data);
+                console.log('Маркет добавлен');
+                handleClose();
+            } else {
+                console.error('Ошибка: пользователь не авторизован.');
+            }
+        } catch (error) {
+            console.error('Ошибка при добавлении маркета:', error);
+        }
     };
 
     return (
@@ -46,12 +64,16 @@ const AddMarketModal: React.FC<BasicModalProps> = ({ open, handleClose }) => {
                         label="Название маркета"
                         variant="outlined"
                         margin="normal"
+                        value={marketName}
+                        onChange={(e) => setMarketName(e.target.value)}
                     />
                     <TextField
                         fullWidth
                         label="Токен"
                         variant="outlined"
                         margin="normal"
+                        value={token}
+                        onChange={(e) => setToken(e.target.value)}
                     />
                     <Button
                         variant="contained"
@@ -66,6 +88,6 @@ const AddMarketModal: React.FC<BasicModalProps> = ({ open, handleClose }) => {
             </Box>
         </Modal>
     );
-};
+});
 
 export default AddMarketModal;

@@ -1,14 +1,19 @@
-import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select, {SelectChangeEvent} from '@mui/material/Select';
+import {observer} from 'mobx-react-lite';
+import {marketStore} from '../../store/MarketStore.ts';
 
-const MarketSelect = () => {
-    const [age, setAge] = React.useState('');
+const MarketSelect = observer(() => {
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
+
+    const handleSetCurrentMarket = (event: SelectChangeEvent<number>) => {
+        const marketId = Number(event.target.value);
+        const market = marketStore.markets.find((market) => market.marketId === marketId);
+        if (market) {
+            marketStore.setCurrentMarket(market);
+        }
     };
 
     return (
@@ -17,15 +22,20 @@ const MarketSelect = () => {
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={age}
+                value={marketStore.currentMarket?.marketId ?? ''}
                 label="Market"
-                onChange={handleChange}
+                onChange={handleSetCurrentMarket}
             >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {marketStore.markets.map((market) => (
+                    <MenuItem
+                        key={market.marketId}
+                        value={market.marketId}
+                    >
+                        {market.marketName}
+                    </MenuItem>
+                ))}
             </Select>
         </FormControl>
     );
-};
+});
 export default MarketSelect;

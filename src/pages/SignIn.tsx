@@ -49,7 +49,14 @@ export const SignIn: React.FC = observer(() => {
             const response = await login(values);
 
             await authStore.setToken(response.data.token);
-
+            console.log('Token set:', authStore.token);
+            authStore.setUser({
+                userId: response.data.userId,
+                email: response.data.email,
+                firstName:  response.data.firstName,
+                lastName: response.data.lastName,
+            });
+            console.log('User set:', authStore.user);
             appStore.setIsLoading(false);
             if (authStore.tokenValid) {
                 navigate('/dashboard');

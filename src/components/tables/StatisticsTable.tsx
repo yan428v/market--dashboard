@@ -149,6 +149,7 @@ const StatisticsTable = observer(({ rows, type, headCells }: StatisticsTableProp
                         />
                         <TableBody>
                             {visibleRows.map((row, index) => {
+                                // console.log(JSON.stringify(row, null, 2));
                                 const isItemSelected = isSelected(row.id);
                                 const labelId = `enhanced-table-checkbox-${index}`;
                                 const formattedDate = new Date(row.date).toLocaleDateString('ru-RU', {
@@ -164,7 +165,7 @@ const StatisticsTable = observer(({ rows, type, headCells }: StatisticsTableProp
                                         role="checkbox"
                                         aria-checked={isItemSelected}
                                         tabIndex={-1}
-                                        key={row.id}
+                                        key={type === 'all' ? row.campaignId : row.id}
                                         selected={isItemSelected}
                                         sx={{ cursor: 'pointer' }}
                                     >
