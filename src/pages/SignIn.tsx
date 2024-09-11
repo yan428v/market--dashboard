@@ -16,7 +16,6 @@ import {useNavigate} from 'react-router-dom';
 import {appStore} from '../store/AppStore.tsx';
 import {login} from '../api/authApi.ts';
 import {authStore} from '../store/AuthStore.ts';
-import {marketStore} from '../store/MarketStore.ts';
 
 const defaultTheme = createTheme();
 
@@ -50,13 +49,6 @@ export const SignIn: React.FC = observer(() => {
 
             await authStore.setToken(response.data.token);
 
-
-
-
-
-            if (authStore.user?.userId) {
-                await marketStore.setMarkets(authStore.user?.userId);
-            }
 
             appStore.setIsLoading(false);
             if (authStore.tokenValid) {

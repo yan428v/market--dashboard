@@ -2,6 +2,7 @@ import {action, makeAutoObservable, runInAction} from 'mobx';
 import dayjs, {Dayjs} from 'dayjs';
 import {getChartStatistics} from '../api/chartApi.ts';
 import {ChartStatistics} from '../types/types.ts';
+import {appStore} from './AppStore.tsx';
 
 class ChartStore {
     chartStatistics: ChartStatistics | null = null;
@@ -9,13 +10,21 @@ class ChartStore {
     intervalTo: Dayjs | null = dayjs().subtract(1, 'day').endOf('day');
     constructor() {
         makeAutoObservable(this);
+        this.loadChartStatistics();
     }
 
     async loadChartStatistics() {
-        const data = await getChartStatistics(this.intervalFrom, this.intervalTo);
-        runInAction(() => {
-            this.chartStatistics = data;
-        });
+        appStore.setIsLoading(true);
+        try {
+            const data = await getChartStatistics(this.intervalFrom, this.intervalTo);
+            runInAction(() => {
+                this.chartStatistics = data;
+            });
+        } catch (error) {
+            console.error('Ошибка загрузки статистики:', error);
+        } finally {
+            appStore.setIsLoading(false);
+        }
     }
 
     setIntervalFrom = action((value: Dayjs | null) => {

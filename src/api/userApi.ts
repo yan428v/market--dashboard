@@ -1,6 +1,5 @@
 import axiosJson from './axiosJson.ts';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 const changePasswordPath = import.meta.env.VITE_CHANGE_PASSWORD_PATH;
 export const changePassword = async (passwordData: { oldPassword: string; newPassword: string }) => {
@@ -12,4 +11,3 @@ export const changePassword = async (passwordData: { oldPassword: string; newPas
         throw error;
     }
 };
-``;

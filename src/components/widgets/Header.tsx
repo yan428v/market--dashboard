@@ -52,6 +52,7 @@ const Header: FC<HeaderProps> = ({ toggleSidebar }) => {
     const handleLogout = () => {
         authStore.clearUser();
         authStore.clearToken();
+        marketStore.clearMarkets();
         marketStore.clearCurrentMarket();
         navigate('/signin');
     };
@@ -59,7 +60,7 @@ const Header: FC<HeaderProps> = ({ toggleSidebar }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const userEmail = localStorage.getItem('email');
+    const userEmail = authStore.user?.email;
 
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, true);
@@ -93,7 +94,7 @@ const Header: FC<HeaderProps> = ({ toggleSidebar }) => {
                 <div className="header-left">
                     <ul>
                         <li>
-                            <MarketSelect/>
+                            { marketStore.markets.length > 0 && <MarketSelect /> }
                         </li>
                     </ul>
                 </div>

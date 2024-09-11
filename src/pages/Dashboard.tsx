@@ -7,27 +7,15 @@ import {chartStore} from '../store/ChartStore.ts';
 import Loader from '../components/widgets/Loader.tsx';
 import {observer} from 'mobx-react-lite';
 import {useEffect} from 'react';
-import {statisticsStore} from '../store/StatisticsStore.ts';
 import dayjs from 'dayjs';
 import SalesChart from '../components/charts/SalesChart.tsx';
 
 const Dashboard = observer(() => {
     useEffect(() => {
         chartStore.setIntervalTo(dayjs().endOf('day'));
-        if(statisticsStore.allStatistics.length === 0) {
-            (async () => {
-                appStore.setIsLoading(true);
-                await chartStore.loadChartStatistics();
-                appStore.setIsLoading(false);
-            })();
-        }
     }, []);
     function handleUpdateStatistics() {
-        appStore.setIsLoading(true);
-        (async () => {
-            await chartStore.loadChartStatistics();
-            appStore.setIsLoading(false);
-        })();
+        chartStore.loadChartStatistics();
     }
 
     if (appStore.isLoading) {

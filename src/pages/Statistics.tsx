@@ -34,14 +34,6 @@ const dailyStatisticsHeadCells = createHeadCells([
 const Statistics = observer(() => {
     useEffect(() => {
         statisticsStore.setIntervalTo(dayjs().endOf('day'));
-        if (statisticsStore.allStatistics.length === 0) {
-            (async () => {
-                appStore.setIsLoading(true);
-                await statisticsStore.loadAllStatistics();
-                await statisticsStore.loadDailyStatistics();
-                appStore.setIsLoading(false);
-            })();
-        }
     }, []);
 
     function handleButtonClick(button: string) {
@@ -49,12 +41,7 @@ const Statistics = observer(() => {
     }
 
     function handleUpdateStatistics() {
-        appStore.setIsLoading(true);
-        (async () => {
-            await statisticsStore.loadAllStatistics();
-            await statisticsStore.loadDailyStatistics();
-            appStore.setIsLoading(false);
-        })();
+        statisticsStore.loadStatistics();
     }
 
     if (appStore.isLoading) {

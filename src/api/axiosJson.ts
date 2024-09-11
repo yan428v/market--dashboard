@@ -1,7 +1,6 @@
 import axios, {AxiosError, InternalAxiosRequestConfig} from 'axios';
 import {authStore} from '../store/AuthStore.ts';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 const base_url = import.meta.env.VITE_BASE_URL;
 
@@ -18,8 +17,9 @@ axiosJson.interceptors.request.use(
         if (token) {
             config.headers = config.headers || {};
             config.headers['authorization'] = `Bearer ${token}`;
+            // console.log('Token added to request');
         } else {
-            console.log('No token available');
+            // console.log('No token available');
         }
         return config;
     },

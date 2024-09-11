@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import axiosJson from './axiosJson.ts';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 const chartStatisticsPath = import.meta.env.VITE_CHART_STATISTICS_PATH;
 

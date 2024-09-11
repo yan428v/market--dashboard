@@ -1,13 +1,10 @@
 import axiosJson from './axiosJson';
 
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 const loginPath = import.meta.env.VITE_AUTH_LOGIN_PATH;
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 const registrationPath  = import.meta.env.VITE_AUTH_REGISTRATION_PATH;
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 const validateTokenPath = import.meta.env.VITE_VALIDATE_TOKEN_PATH;
 

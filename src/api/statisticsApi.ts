@@ -1,18 +1,14 @@
 import axiosJson from './axiosJson.ts';
-import dayjs from 'dayjs';
+import dayjs, {Dayjs} from 'dayjs';
 
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 const statisticsPath = import.meta.env.VITE_STATISTICS_PATH;
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 const dailyStatisticsPath = import.meta.env.VITE_DAILY_STATISTICS_PATH;
 
-export const getAllStatistics = async (
-    intervalFrom?: string | number | Date | dayjs.Dayjs | null | undefined,
-    intervalTo?: string | number | Date | dayjs.Dayjs | null | undefined) => {
+export const getAllStatistics = async (intervalFrom: Dayjs | null, intervalTo: Dayjs | null ) => {
     try {
         const formattedIntervalFrom = dayjs(intervalFrom).format('YYYY-MM-DD');
         const formattedIntervalTo = dayjs(intervalTo).format('YYYY-MM-DD');
@@ -30,9 +26,7 @@ export const getAllStatistics = async (
     }
 };
 
-export const getDailyStatistics = async (
-    intervalFrom?: string | number | Date | dayjs.Dayjs | null | undefined,
-    intervalTo?: string | number | Date | dayjs.Dayjs | null | undefined) => {
+export const getDailyStatistics = async (intervalFrom: Dayjs | null, intervalTo: Dayjs | null ) => {
     try {
         const formattedIntervalFrom = dayjs(intervalFrom).format('YYYY-MM-DD');
         const formattedIntervalTo = dayjs(intervalTo).format('YYYY-MM-DD');

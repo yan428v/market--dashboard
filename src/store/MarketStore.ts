@@ -8,17 +8,33 @@ class MarketStore {
 
     constructor() {
         makeAutoObservable(this);
+
+        const savedMarkets = localStorage.getItem('markets');
+        if (savedMarkets) {
+            this.markets = JSON.parse(savedMarkets);
+        }
+
+        const savedCurrentMarket = localStorage.getItem('currentMarket');
+        if (savedCurrentMarket) {
+            this.currentMarket = JSON.parse(savedCurrentMarket);
+        }
     }
 
     async setMarkets(userId: number) {
         const data = await getMarketsByUserId(userId);
         runInAction(() => {
             this.markets = data;
+            localStorage.setItem('markets', JSON.stringify(this.markets));
+            if (data.length === 1) {
+                this.currentMarket = data[0];
+                localStorage.setItem('currentMarket', JSON.stringify(this.currentMarket));
+            }
         });
     }
 
     clearMarkets() {
         this.markets = [];
+        localStorage.removeItem('markets');
     }
     clearCurrentMarket() {
         this.currentMarket = null;
@@ -26,17 +42,9 @@ class MarketStore {
     }
 
     setCurrentMarket(market: IMarket) {
-        console.log(this.currentMarket?.marketName);
         this.currentMarket = market;
-
         localStorage.setItem('currentMarket', JSON.stringify(this.currentMarket));
-
-        console.log(this.currentMarket.marketName);
-
     }
-    // saveMarketsToLocalStorage() {
-    //     localStorage.setItem('markets', JSON.stringify(this.markets));
-    // }
 }
 
 export const marketStore = new MarketStore();

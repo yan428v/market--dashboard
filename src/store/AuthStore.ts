@@ -14,6 +14,7 @@ class AuthStore {
         makeAutoObservable(this);
         this.token = localStorage.getItem('token');
         this.tokenValid = this.token ? !this.isTokenExpired(this.token) : false;
+        this.user = this.token ? jwtDecode(this.token) : null;
     }
 
     setUser(user: IUser) {
@@ -34,6 +35,9 @@ class AuthStore {
 
             if (this.user && this.user.userId) {
                 await marketStore.setMarkets(this.user.userId);
+                if (marketStore.markets.length > 0) {
+                    marketStore.setCurrentMarket(marketStore.markets[0]);
+                }
             }
         } catch (e) {
             appStore.showErrorMessage(e, 'Token is not valid');

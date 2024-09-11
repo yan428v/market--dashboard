@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 
 const SalesChart = observer(() => {
     const rawData = chartStore.chartStatistics?.dailyStatistics;
+
     const data = rawData?.map(item => ({
         ...item,
         date: dayjs(item.date).format('DD.MM')
