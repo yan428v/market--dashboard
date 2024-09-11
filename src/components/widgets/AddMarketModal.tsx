@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import {observer} from 'mobx-react-lite';
 import {authStore} from '../../store/AuthStore.ts';
 import {addMarket} from '../../api/marketApi.ts';
+import {marketStore} from '../../store/MarketStore.ts';
 
 interface BasicModalProps {
     open: boolean;
@@ -30,13 +31,13 @@ const AddMarketModal: React.FC<BasicModalProps> = observer(({ open, handleClose 
 
     const handleAddMarket = async () => {
         try {
-            if (authStore.user) { // Проверяем, что user не null
+            if (authStore.user) {
                 const userId = authStore.user.userId;
+                console.log(userId);
                 const data = { marketName, token, userId };
 
-                // Вызываем функцию добавления маркета
                 await addMarket(data);
-                console.log('Маркет добавлен');
+                await marketStore.setMarkets(userId);
                 handleClose();
             } else {
                 console.error('Ошибка: пользователь не авторизован.');

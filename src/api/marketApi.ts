@@ -1,11 +1,10 @@
 import axiosJson from './axiosJson.ts';
-import {IMarket} from '../types/types.ts';
 
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 const addMarketPath = import.meta.env.VITE_ADD_MARKET_PATH;
-export const addMarket = async (data: IMarket) => {
+export const addMarket = async (data: {     marketName: string;     token: string;     userId: number; }) => {
     // console.log(data);
     try {
         const response = await axiosJson.post('/markets', data);

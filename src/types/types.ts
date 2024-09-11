@@ -16,16 +16,16 @@ export interface CampaignStatistics {
 export interface IUser {
     userId: number;
     email: string;
-    password: string;
     firstName: string;
     lastName: string;
-    status?: string;
-    role?: string;
-    createdAt?: Date;
-    updatedAt?: Date;
+    status: number;
+    role: number;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface DailyStatistics {
+
     id:number;
     date: string;
     dayOfWeek: string;
@@ -88,6 +88,7 @@ export interface HeadCell {
 }
 
 export interface IMarket {
+
     marketId: number;
     userId: number;
     marketName: string;

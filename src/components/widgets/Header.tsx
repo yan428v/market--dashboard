@@ -4,6 +4,7 @@ import { authStore } from '../../store/AuthStore.ts';
 import { useNavigate } from 'react-router-dom';
 import AddMarketModal from './AddMarketModal.tsx';
 import MarketSelect from './MarketSelect.tsx';
+import {marketStore} from '../../store/MarketStore.ts';
 
 interface HeaderProps {
     toggleSidebar: () => void;
@@ -51,6 +52,7 @@ const Header: FC<HeaderProps> = ({ toggleSidebar }) => {
     const handleLogout = () => {
         authStore.clearUser();
         authStore.clearToken();
+        marketStore.clearCurrentMarket();
         navigate('/signin');
     };
 

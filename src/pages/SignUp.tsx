@@ -33,15 +33,6 @@ export const SignUp: React.FC = observer(() => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
-    // useEffect(() => {
-    //     const savedEmail = localStorage.getItem('email');
-    //     const savedPassword = localStorage.getItem('password');
-    //     if (savedEmail && savedPassword) {
-    //         setEmail(savedEmail);
-    //         setPassword(savedPassword);
-    //     }
-    // }, []);
-
     const handleSignUp = async (event: FormEvent) => {
         event.preventDefault();
         const values = {
@@ -52,11 +43,11 @@ export const SignUp: React.FC = observer(() => {
         };
         try {
             appStore.setIsLoading(true);
-
             await validatePassword(values.password);
             await validateEmail(values.email);
             await validateUsername(values.firstName);
             await validateUsername(values.lastName);
+
 
             localStorage.setItem('email', values.email);
             localStorage.setItem('password', values.password);
@@ -64,14 +55,9 @@ export const SignUp: React.FC = observer(() => {
             const response = await signUp(values);
 
             await authStore.setToken(response.data.token);
-            console.log('Token set:', authStore.token);
-            authStore.setUser({
-                userId: response.data.userId,
-                email: response.data.email,
-                firstName:  response.data.firstName,
-                lastName: response.data.lastName,
-            });
-            console.log('User set:', authStore.user);
+
+
+
             appStore.setIsLoading(false);
             console.log('Регистрация прошла успешно!');
             navigate('/dashboard');

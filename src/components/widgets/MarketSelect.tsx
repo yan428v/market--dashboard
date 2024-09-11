@@ -4,9 +4,28 @@ import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {observer} from 'mobx-react-lite';
 import {marketStore} from '../../store/MarketStore.ts';
+import {useEffect} from 'react';
+import {runInAction} from 'mobx';
 
 const MarketSelect = observer(() => {
 
+    useEffect(() => {
+        const storedMarkets = localStorage.getItem('markets');
+        const storedCurrentMarket = localStorage.getItem('currentMarket');
+
+        runInAction(() => {
+            if (storedMarkets) {
+                marketStore.markets = JSON.parse(storedMarkets);
+            }
+            if (storedCurrentMarket) {
+                marketStore.currentMarket = JSON.parse(storedCurrentMarket);
+            }
+        });
+
+    }, []);
+
+    const storedMarkets = marketStore.markets;
+    const storedCurrentMarket = marketStore.currentMarket?.marketId;
 
     const handleSetCurrentMarket = (event: SelectChangeEvent<number>) => {
         const marketId = Number(event.target.value);
@@ -15,19 +34,18 @@ const MarketSelect = observer(() => {
             marketStore.setCurrentMarket(market);
         }
     };
-
     return (
-        <FormControl sx={{ m: 1, minWidth: 180}} fullWidth size="small">
+        <FormControl sx={{ m: 1, minWidth: 180, maxWidth: 220}} fullWidth size="small">
             <InputLabel id="demo-simple-select-label">Market</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={marketStore.currentMarket?.marketId ?? ''}
+                value={storedCurrentMarket ?? storedMarkets[0]?.marketId ?? ''}
                 label="Market"
                 onChange={handleSetCurrentMarket}
             >
-                {marketStore.markets.map((market) => (
-                    <MenuItem
+                {storedMarkets.map((market) => (
+                    <MenuItem sx={{ maxWidth: 250}}
                         key={market.marketId}
                         value={market.marketId}
                     >

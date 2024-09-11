@@ -16,6 +16,7 @@ import {useNavigate} from 'react-router-dom';
 import {appStore} from '../store/AppStore.tsx';
 import {login} from '../api/authApi.ts';
 import {authStore} from '../store/AuthStore.ts';
+import {marketStore} from '../store/MarketStore.ts';
 
 const defaultTheme = createTheme();
 
@@ -42,21 +43,21 @@ export const SignIn: React.FC = observer(() => {
         };
         try {
             appStore.setIsLoading(true);
-
             localStorage.setItem('email', values.email);
             localStorage.setItem('password', values.password);
 
             const response = await login(values);
 
             await authStore.setToken(response.data.token);
-            console.log('Token set:', authStore.token);
-            authStore.setUser({
-                userId: response.data.userId,
-                email: response.data.email,
-                firstName:  response.data.firstName,
-                lastName: response.data.lastName,
-            });
-            console.log('User set:', authStore.user);
+
+
+
+
+
+            if (authStore.user?.userId) {
+                await marketStore.setMarkets(authStore.user?.userId);
+            }
+
             appStore.setIsLoading(false);
             if (authStore.tokenValid) {
                 navigate('/dashboard');
@@ -122,11 +123,6 @@ export const SignIn: React.FC = observer(() => {
                             Sign In
                         </Button>
                         <Grid container justifyContent="center">
-                            {/*<Grid item xs>*/}
-                            {/*    <Link href="#" variant="body2">*/}
-                            {/*        Forgot password?*/}
-                            {/*    </Link>*/}
-                            {/*</Grid>*/}
                             <Grid item>
                                 <Link href="/signup" variant="body2">
                                     {'Don\'t have an account? Sign Up'}
