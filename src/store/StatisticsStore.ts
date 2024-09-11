@@ -3,6 +3,8 @@ import { getAllStatistics, getDailyStatistics } from '../api/statisticsApi.ts';
 import { CampaignStatistics, DailyStatistics } from '../types/types.ts';
 import dayjs, {Dayjs} from 'dayjs';
 import {appStore} from './AppStore.tsx';
+import {authStore} from './AuthStore.ts';
+import {marketStore} from './MarketStore.ts';
 
 class StatisticsStore {
     dailyStatistics: DailyStatistics[] = [];
@@ -12,7 +14,9 @@ class StatisticsStore {
     intervalTo: Dayjs | null = dayjs().endOf('day');
     constructor() {
         makeAutoObservable(this);
-        this.loadStatistics();
+        if (authStore.tokenValid && authStore.user?.userId && marketStore.currentMarket) {
+            this.loadStatistics();
+        }
     }
     async loadStatistics() {
         appStore.setIsLoading(true);

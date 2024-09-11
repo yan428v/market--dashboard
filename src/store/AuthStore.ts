@@ -17,6 +17,7 @@ class AuthStore {
         this.user = this.token ? jwtDecode(this.token) : null;
     }
 
+
     setUser(user: IUser) {
         this.user = user;
     }

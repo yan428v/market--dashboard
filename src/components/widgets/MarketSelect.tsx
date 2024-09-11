@@ -6,6 +6,8 @@ import {observer} from 'mobx-react-lite';
 import {marketStore} from '../../store/MarketStore.ts';
 import {useEffect} from 'react';
 import {runInAction} from 'mobx';
+import {statisticsStore} from '../../store/StatisticsStore.ts';
+import {chartStore} from '../../store/ChartStore.ts';
 
 const MarketSelect = observer(() => {
 
@@ -32,6 +34,8 @@ const MarketSelect = observer(() => {
         const market = marketStore.markets.find((market) => market.marketId === marketId);
         if (market) {
             marketStore.setCurrentMarket(market);
+            statisticsStore.loadStatistics();
+            chartStore.loadChartStatistics();
         }
     };
     return (

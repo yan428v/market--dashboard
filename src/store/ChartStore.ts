@@ -3,6 +3,8 @@ import dayjs, {Dayjs} from 'dayjs';
 import {getChartStatistics} from '../api/chartApi.ts';
 import {ChartStatistics} from '../types/types.ts';
 import {appStore} from './AppStore.tsx';
+import {authStore} from './AuthStore.ts';
+import {marketStore} from './MarketStore.ts';
 
 class ChartStore {
     chartStatistics: ChartStatistics | null = null;
@@ -10,7 +12,9 @@ class ChartStore {
     intervalTo: Dayjs | null = dayjs().subtract(1, 'day').endOf('day');
     constructor() {
         makeAutoObservable(this);
-        this.loadChartStatistics();
+        if (authStore.tokenValid && authStore.user?.userId && marketStore.currentMarket) {
+            this.loadChartStatistics();
+        }
     }
 
     async loadChartStatistics() {
