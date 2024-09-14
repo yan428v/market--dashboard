@@ -3,7 +3,7 @@ import axiosJson from './axiosJson.ts';
 
 // @ts-expect-error
 const marketPath = import.meta.env.VITE_MARKET_PATH;
-export const addMarket = async (data: {marketName: string; token: string; userId: number;}) => {
+export const addMarket = async (data: {marketName: string; clientLogin:string; token: string; userId: number;}) => {
     try {
         const response = await axiosJson.post(marketPath, data);
         return response.data.data;

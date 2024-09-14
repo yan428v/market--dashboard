@@ -88,7 +88,7 @@ export interface HeadCell {
 }
 
 export interface IMarket {
-
+    clientLogin: string;
     marketId: number;
     userId: number;
     marketName: string;

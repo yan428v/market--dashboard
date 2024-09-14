@@ -261,6 +261,7 @@ h6 {
   float: left;
   margin-left: 35px;
   line-height: 60px;
+  /*pointer-events: none;*/
 }
 
 .header-left .icons {

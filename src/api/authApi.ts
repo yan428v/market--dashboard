@@ -12,7 +12,7 @@ const validateTokenPath = import.meta.env.VITE_VALIDATE_TOKEN_PATH;
 export const login = async (userData: { email: string; password: string }) => {
     try {
         const response = await axiosJson.post(loginPath, userData);
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('Error logging in:', error);
@@ -28,7 +28,7 @@ export const signUp = async (userData: {
 }) => {
     try {
         const response = await axiosJson.post(registrationPath, userData);
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('Error registering:', error);

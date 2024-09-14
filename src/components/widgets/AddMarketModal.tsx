@@ -8,6 +8,7 @@ import {observer} from 'mobx-react-lite';
 import {authStore} from '../../store/AuthStore.ts';
 import {addMarket} from '../../api/marketApi.ts';
 import {marketStore} from '../../store/MarketStore.ts';
+import {appStore} from '../../store/AppStore.tsx';
 
 interface BasicModalProps {
     open: boolean;
@@ -27,6 +28,7 @@ const style = {
 
 const AddMarketModal: React.FC<BasicModalProps> = observer(({ open, handleClose }) => {
     const [marketName, setMarketName] = useState('');
+    const [clientLogin, setClientLogin] = useState('');
     const [token, setToken] = useState('');
 
     const handleAddMarket = async () => {
@@ -34,16 +36,24 @@ const AddMarketModal: React.FC<BasicModalProps> = observer(({ open, handleClose 
             if (authStore.user) {
                 const userId = authStore.user.userId;
                 console.log(userId);
-                const data = { marketName, token, userId };
+                const data = { marketName, clientLogin, token, userId };
 
                 await addMarket(data);
                 await marketStore.setMarkets(userId);
+
                 handleClose();
+                setMarketName('');
+                setClientLogin('');
+                setToken('');
+                appStore.showSuccessMessage('Маркет добавлен, данные загрузятся в течении 20 минут');
+
             } else {
                 console.error('Ошибка: пользователь не авторизован.');
+                appStore.showErrorMessage('Ошибка: пользователь не авторизован.', 'Ошибка');
             }
         } catch (error) {
             console.error('Ошибка при добавлении маркета:', error);
+            appStore.showErrorMessage(error, 'Ошибка при добавлении маркета');
         }
     };
 
@@ -67,6 +77,14 @@ const AddMarketModal: React.FC<BasicModalProps> = observer(({ open, handleClose 
                         margin="normal"
                         value={marketName}
                         onChange={(e) => setMarketName(e.target.value)}
+                    />
+                    <TextField
+                        fullWidth
+                        label="Логин клиента маркета"
+                        variant="outlined"
+                        margin="normal"
+                        value={clientLogin}
+                        onChange={(e) => setClientLogin(e.target.value)}
                     />
                     <TextField
                         fullWidth

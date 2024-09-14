@@ -94,7 +94,7 @@ const Header: FC<HeaderProps> = ({ toggleSidebar }) => {
                 <div className="header-left">
                     <ul>
                         <li>
-                            { marketStore.markets.length > 0 && <MarketSelect /> }
+                            { marketStore.markets.length > 0 && <MarketSelect/> }
                         </li>
                     </ul>
                 </div>

@@ -39,7 +39,7 @@ const MarketSelect = observer(() => {
         }
     };
     return (
-        <FormControl sx={{ m: 1, minWidth: 180, maxWidth: 220}} fullWidth size="small">
+        <FormControl sx={{ m: 1, minWidth: 180, maxWidth: 220, }} fullWidth size="small">
             <InputLabel id="demo-simple-select-label">Market</InputLabel>
             <Select
                 labelId="demo-simple-select-label"

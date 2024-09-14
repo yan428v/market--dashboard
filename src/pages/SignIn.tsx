@@ -16,6 +16,8 @@ import {useNavigate} from 'react-router-dom';
 import {appStore} from '../store/AppStore.tsx';
 import {login} from '../api/authApi.ts';
 import {authStore} from '../store/AuthStore.ts';
+import {statisticsStore} from '../store/StatisticsStore.ts';
+import {chartStore} from '../store/ChartStore.ts';
 
 const defaultTheme = createTheme();
 
@@ -49,11 +51,13 @@ export const SignIn: React.FC = observer(() => {
 
             await authStore.setToken(response.data.token);
 
+            await statisticsStore.loadStatistics();
+            await chartStore.loadChartStatistics();
 
-            appStore.setIsLoading(false);
             if (authStore.tokenValid) {
                 navigate('/dashboard');
             }
+            appStore.setIsLoading(false);
             appStore.showSuccessMessage('Вход выполнен!');
         } catch (e: any) {
             appStore.setIsLoading(false);

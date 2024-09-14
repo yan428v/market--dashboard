@@ -18,6 +18,10 @@ axiosJson.interceptors.request.use(
         const userId = authStore.user?.userId;
         const currentMarketId = marketStore.currentMarket?.marketId;
 
+        config.params = config.params || {};
+        if (userId) config.params.userId = userId;
+        if (currentMarketId) config.params.currentMarketId = currentMarketId;
+
         if (token) {
             config.headers = config.headers || {};
             config.headers['authorization'] = `Bearer ${token}`;
@@ -25,10 +29,6 @@ axiosJson.interceptors.request.use(
         } else {
             // console.log('No token available');
         }
-
-        config.params = config.params || {}; // todo: проверить зачем это нужно 2 раза
-        if (userId) config.params.userId = userId;
-        if (currentMarketId) config.params.currentMarketId = currentMarketId;
 
         return config;
     },
