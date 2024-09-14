@@ -260,8 +260,7 @@ h6 {
 .header-left {
   float: left;
   margin-left: 35px;
-  line-height: 60px;
-  /*pointer-events: none;*/
+  height: 60px;
 }
 
 .header-left .icons {
